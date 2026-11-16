@@ -1,4 +1,23 @@
-Full run output is being saved to: c:\Users\giorg\Desktop\Project\run_output.txt
+Implementing Target Eigenvector Centralities through Noncooperative Network Games:
+Theory and an Application to the BACI Trade Network
+(M. Passacantando, F. Raciti, G. Rizzo)
+
+RUN OUTPUT - EXPERIMENT 2
+=========================
+
+This file contains the complete, unedited console output of the run of Experiment 2 (random target centrality) on the BACI
+trade network (sector 870323, HS92), produced by the Python code BACI-Nash_exp_plot.py available in this
+repository. The output reports, in this order: the data and parameters of the run, the checks on the target
+centrality and on the solution of the game, the equilibrium flows and the utilities of the members of the
+coalition, the multipliers (mu_i of the budget constraint, pi_i of the centrality constraint and nu_ij of the
+arcs at the lower bound) together with their summary table, four trend tables (rank correlations between the
+required change of centrality and flows, reallocated export, multipliers and utilities), and the list of the
+images created. The tables of the paper are derived from this output; the tables of its Appendix are also
+reproduced in the file appendix_tables.txt. Local file paths have been removed.
+
+----------------------------------------------------------------------------------------------------
+
+Full run output is being saved to: run_output.txt
 
 EXPERIMENT 2 selected.
 
@@ -101,7 +120,7 @@ ANALYSIS FOR SECTOR: Vehicles: spark-ignition internal combustion reciprocating 
 
  c_des NON e' implementabile da S (Proposizione 3 e condizione sugli outsider (residuo 2.26e-01) non soddisfatta).
  MIQP: 20 member(s) with >= 2 arcs (big-M with binary selectors); 4 single-arc member(s) use the equality rho0*c_i = T0_i*c_j
- MIQP diagnostics (Gurobi): status = 2 | runtime = 2.6s | relative gap = 0.00e+00 | best bound = 0.00684328 | nodes = 6234
+ MIQP diagnostics (Gurobi): status = 2 | runtime = 2.7s | relative gap = 0.00e+00 | best bound = 0.00684328 | nodes = 6234
    max constraint violation at the returned solution = 4.66e-10
  MIQP started WITHOUT warm start (c_init = None, experiment 2) | ||c0 - c_des||^2 = 0.00696061 | ||c* - c0||^2 = 0.000115127
  Stage 1 (target-centrality MIQP): ||c* - c_des||^2 = 0.00684328 | eta = 3.66383e-12
@@ -162,7 +181,7 @@ SECTOR 870323 | PRUNING 10%
 
  condition (Prop. 2) satisfied: True | gamma_j = 1 | ell_ij = 20.00% * w0_ij
 
- GUROBI DIAGNOSTICS - coalition potential game (QP): status = 2 | runtime = 0.010s | barrier iterations = 19
+ GUROBI DIAGNOSTICS - coalition potential game (QP): status = 2 | runtime = 0.007s | barrier iterations = 19
    residuals (relative to the largest budget): budget = 8.23e-14 | centrality = 7.84e-15 | lower bound = 0.00e+00
 
 ===========================================================================================================================
@@ -170,6 +189,7 @@ RISULTATI DEL GIOCO DI COALIZIONE
 ===========================================================================================================================
  |S| = 24 member(s); uniqueness (Prop. 2): YES
  P^S(w_S^NE; c) = 36353702543665376.000000
+ P^S(w_S^0)     = 36694679360495248.000000 (baseline) | variation baseline -> NE = -0.9292%
 
 ===========================================================================================================================
 FLUSSI DEI MEMBRI DELLA COALIZIONE
@@ -678,13 +698,139 @@ MULTIPLIERS TABLE - Experiment 2
  (excluded from all the other columns). Minimum/maximum over the unique multipliers (18/24 members, 361/371 arcs); for nu_ij over the active arcs.
 ======================================================================================================================================================
 
+==============================================================================================================
+TREND TABLE 1 - FLOW SHIFTS vs Delta c_i | SECTOR 870323 | EXPERIMENT 2
+==============================================================================================================
+ For each member with |Delta c_i| > 5%: Spearman correlation, over its importers j, between c^target_j and the shift of the export share (w_ij^NE - w_ij^0)/sum_j w_ij^0.
+ Concordant = the correlation has the sign of Delta c_i (members with at least 4 importers).
+--------------------------------------------------------------------------------------------------------------
+ Member                       Delta c_i (%)   Importers    Spearman    Concordant
+ Austria                             +16.37          18       +0.56           yes
+ Belgium                             +15.67          27       +0.54           yes
+ Czechia                              +6.06          28       +0.03           yes
+ Denmark                             -17.75           7       -0.71           yes
+ Estonia                             -55.64           2        n.d.             -
+ Finland                             -64.73           9       -0.53           yes
+ France                              +25.27          28       +0.55           yes
+ Hungary                              +8.35          27       +0.34           yes
+ Italy                               +46.53          30       +0.38           yes
+ Latvia                              -72.48           1        n.d.             -
+ Lithuania                           -72.48           4       -1.00           yes
+ Luxembourg                          -77.87           4       -0.40           yes
+ Netherlands                         -64.02          15       -0.33           yes
+ Poland                              -64.29           7       -0.68           yes
+ Portugal                            -41.61           8       -0.64           yes
+ Romania                             -70.34          11       -0.47           yes
+ Slovakia                             -5.43          34       -0.12           yes
+ Slovenia                            -79.78           9       -0.97           yes
+ Spain                               +16.12          24       +0.40           yes
+ Sweden                              -37.97          27       -0.31           yes
+--------------------------------------------------------------------------------------------------------------
+ Concordant members: 18 of 18
+==============================================================================================================
+
+==============================================================================================================
+TREND TABLE 2 - REALLOCATED EXPORT vs |Delta c_i| | SECTOR 870323 | EXPERIMENT 2
+==============================================================================================================
+ Reallocated = sum_j |w_ij^NE - w_ij^0| / 2, as a percentage of the baseline export of member i.
+--------------------------------------------------------------------------------------------------------------
+ Member                       Delta c_i (%)   Reallocated (%)
+ Austria                             +16.37             13.70
+ Belgium                             +15.67              9.18
+ Bulgaria                             +0.08              0.00
+ Croatia                              +0.08              0.00
+ Czechia                              +6.06              4.78
+ Denmark                             -17.75             12.68
+ Estonia                             -55.64             34.75
+ Finland                             -64.73             53.63
+ France                              +25.27              9.64
+ Germany                              +0.08              3.97
+ Hungary                              +8.35              6.86
+ Ireland                              +0.44              0.00
+ Italy                               +46.53             27.06
+ Latvia                              -72.48              0.00
+ Lithuania                           -72.48             31.22
+ Luxembourg                          -77.87             70.99
+ Netherlands                         -64.02             44.46
+ Poland                              -64.29             27.06
+ Portugal                            -41.61             20.02
+ Romania                             -70.34             28.96
+ Slovakia                             -5.43              5.55
+ Slovenia                            -79.78             47.72
+ Spain                               +16.12             10.00
+ Sweden                              -37.97             24.81
+--------------------------------------------------------------------------------------------------------------
+ Spearman(reallocated export, |Delta c_i|) over the 24 members: +0.80
+==============================================================================================================
+
+==============================================================================================================
+TREND TABLE 3 - MULTIPLIERS pi_i, mu_i vs Delta c_i (unique multipliers only) | SECTOR 870323 | EXPERIMENT 2
+==============================================================================================================
+--------------------------------------------------------------------------------------------------------------
+ Member                       Delta c_i (%)                  pi_i                  mu_i
+ Austria                             +16.37         -4.592312e+08          5.060375e+08
+ Belgium                             +15.67         -3.230535e+08          4.859001e+08
+ Czechia                              +6.06          1.751018e+08          4.541051e+08
+ Denmark                             -17.75          1.336470e+09          3.573362e+08
+ Finland                             -64.73          7.600312e+09         -1.654205e+08
+ France                              +25.27         -3.077041e+07          4.693372e+08
+ Germany                              +0.08          3.555469e+08          4.625014e+08
+ Hungary                              +8.35         -7.010666e+06          4.891651e+08
+ Italy                               +46.53         -2.383505e+09          6.777436e+08
+ Lithuania                           -72.48          1.905576e+09          3.324461e+08
+ Netherlands                         -64.02          2.074284e+09          3.817936e+08
+ Poland                              -64.29          1.357526e+09          3.294807e+08
+ Portugal                            -41.61          1.916022e+09          3.666036e+08
+ Romania                             -70.34          2.203772e+09          4.054083e+08
+ Slovakia                             -5.43          4.623152e+08          4.508383e+08
+ Slovenia                            -79.78          3.107356e+11          2.871176e+08
+ Spain                               +16.12         -2.132395e+08          4.927105e+08
+ Sweden                              -37.97          4.917253e+09          2.685240e+08
+--------------------------------------------------------------------------------------------------------------
+ Spearman(pi_i, Delta c_i) over the 18 unique members: -0.92
+ Spearman(mu_i, Delta c_i) over the 18 unique members: +0.86
+==============================================================================================================
+
+==============================================================================================================
+TREND TABLE 4 - UTILITY CHANGE vs |Delta c_i| | SECTOR 870323 | EXPERIMENT 2
+==============================================================================================================
+--------------------------------------------------------------------------------------------------------------
+ Member                       Delta c_i (%)     Delta u_i (%)
+ Austria                             +16.37             +0.20
+ Belgium                             +15.67             +0.35
+ Bulgaria                             +0.08             +0.06
+ Croatia                              +0.08             +0.06
+ Czechia                              +6.06             +0.48
+ Denmark                             -17.75             -3.43
+ Estonia                             -55.64            -22.98
+ Finland                             -64.73            -37.14
+ France                              +25.27             +0.66
+ Germany                              +0.08             +0.32
+ Hungary                              +8.35             +0.46
+ Ireland                              +0.44             -0.14
+ Italy                               +46.53             -5.48
+ Latvia                              -72.48             -0.03
+ Lithuania                           -72.48            -12.85
+ Luxembourg                          -77.87            -76.71
+ Netherlands                         -64.02             -7.16
+ Poland                              -64.29             -8.64
+ Portugal                            -41.61             -6.59
+ Romania                             -70.34             -9.79
+ Slovakia                             -5.43             -0.07
+ Slovenia                            -79.78            -24.08
+ Spain                               +16.12             +0.42
+ Sweden                              -37.97            -10.29
+--------------------------------------------------------------------------------------------------------------
+ Spearman(|Delta u_i|, |Delta c_i|) over the 24 members: +0.75
+==============================================================================================================
+
  Creating the images...
 
 ####################################################################################################
  IMAGES CREATED (flows, utilities, export shares):
-   c:\Users\giorg\Desktop\Project\fig_flows_exp2.jpg
-   c:\Users\giorg\Desktop\Project\fig_utilities_exp2.jpg
-   c:\Users\giorg\Desktop\Project\fig_exports_exp2.jpg
+   fig_flows_exp2.jpg
+   fig_utilities_exp2.jpg
+   fig_exports_exp2.jpg
 ####################################################################################################
 
  Utilities at the baseline: positive = 24, negative = 0

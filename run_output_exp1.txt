@@ -1,4 +1,23 @@
-Full run output is being saved to: c:\Users\giorg\Desktop\Project\run_output.txt
+Implementing Target Eigenvector Centralities through Noncooperative Network Games:
+Theory and an Application to the BACI Trade Network
+(M. Passacantando, F. Raciti, G. Rizzo)
+
+RUN OUTPUT - EXPERIMENT 1
+=========================
+
+This file contains the complete, unedited console output of the run of Experiment 1 (target centrality equal to the baseline centrality) on the BACI
+trade network (sector 870323, HS92), produced by the Python code BACI-Nash_exp_plot.py available in this
+repository. The output reports, in this order: the data and parameters of the run, the checks on the target
+centrality and on the solution of the game, the equilibrium flows and the utilities of the members of the
+coalition, the multipliers (mu_i of the budget constraint, pi_i of the centrality constraint and nu_ij of the
+arcs at the lower bound) together with their summary table, four trend tables (rank correlations between the
+required change of centrality and flows, reallocated export, multipliers and utilities), and the list of the
+images created. The tables of the paper are derived from this output; the tables of its Appendix are also
+reproduced in the file appendix_tables.txt. Local file paths have been removed.
+
+----------------------------------------------------------------------------------------------------
+
+Full run output is being saved to: run_output.txt
 
 EXPERIMENT 1 selected.
 
@@ -153,7 +172,7 @@ SECTOR 870323 | PRUNING 10%
 
  condition (Prop. 2) satisfied: True | gamma_j = 1 | ell_ij = 20.00% * w0_ij
 
- GUROBI DIAGNOSTICS - coalition potential game (QP): status = 2 | runtime = 0.005s | barrier iterations = 15
+ GUROBI DIAGNOSTICS - coalition potential game (QP): status = 2 | runtime = 0.007s | barrier iterations = 15
    residuals (relative to the largest budget): budget = 1.24e-14 | centrality = 1.77e-15 | lower bound = 0.00e+00
 
 ===========================================================================================================================
@@ -161,6 +180,7 @@ RISULTATI DEL GIOCO DI COALIZIONE
 ===========================================================================================================================
  |S| = 24 member(s); uniqueness (Prop. 2): YES
  P^S(w_S^NE; c) = 3225333497014312.000000
+ P^S(w_S^0)     = 3132970840269282.000000 (baseline) | variation baseline -> NE = +2.9481%
 
 ===========================================================================================================================
 FLUSSI DEI MEMBRI DELLA COALIZIONE
@@ -624,13 +644,127 @@ MULTIPLIERS TABLE - Experiment 1
  (excluded from all the other columns). Minimum/maximum over the unique multipliers (20/24 members, 367/371 arcs); for nu_ij over the active arcs.
 ======================================================================================================================================================
 
+==============================================================================================================
+TREND TABLE 1 - FLOW SHIFTS vs Delta c_i | SECTOR 870323 | EXPERIMENT 1
+==============================================================================================================
+ For each member with |Delta c_i| > 5%: Spearman correlation, over its importers j, between c^target_j and the shift of the export share (w_ij^NE - w_ij^0)/sum_j w_ij^0.
+ Concordant = the correlation has the sign of Delta c_i (members with at least 4 importers).
+--------------------------------------------------------------------------------------------------------------
+ Member                       Delta c_i (%)   Importers    Spearman    Concordant
+--------------------------------------------------------------------------------------------------------------
+ Concordant members: n.d. (no member with |Delta c_i| above the threshold and enough importers)
+==============================================================================================================
+
+==============================================================================================================
+TREND TABLE 2 - REALLOCATED EXPORT vs |Delta c_i| | SECTOR 870323 | EXPERIMENT 1
+==============================================================================================================
+ Reallocated = sum_j |w_ij^NE - w_ij^0| / 2, as a percentage of the baseline export of member i.
+--------------------------------------------------------------------------------------------------------------
+ Member                       Delta c_i (%)   Reallocated (%)
+ Austria                              +0.00             11.13
+ Belgium                              +0.00              3.24
+ Bulgaria                             +0.00              0.00
+ Croatia                              +0.00              0.00
+ Czechia                              +0.00              0.44
+ Denmark                              +0.00              0.04
+ Estonia                              +0.00              0.00
+ Finland                              +0.00             18.40
+ France                               +0.00              8.34
+ Germany                              +0.00              2.61
+ Hungary                              +0.00              7.53
+ Ireland                              +0.00              0.00
+ Italy                                +0.00             13.82
+ Latvia                               +0.00              0.00
+ Lithuania                            +0.00              0.69
+ Luxembourg                           +0.00              0.07
+ Netherlands                          +0.00             11.18
+ Poland                               +0.00              0.20
+ Portugal                             +0.00              0.27
+ Romania                              +0.00              0.29
+ Slovakia                             +0.00              5.01
+ Slovenia                             +0.00              0.47
+ Spain                                +0.00              2.58
+ Sweden                               +0.00              3.62
+--------------------------------------------------------------------------------------------------------------
+ Spearman(reallocated export, |Delta c_i|) over the 24 members: n.d. (fewer than 8 members with |Delta c_i| > 5%: 0 member(s))
+==============================================================================================================
+
+==============================================================================================================
+TREND TABLE 3 - MULTIPLIERS pi_i, mu_i vs Delta c_i (unique multipliers only) | SECTOR 870323 | EXPERIMENT 1
+==============================================================================================================
+--------------------------------------------------------------------------------------------------------------
+ Member                       Delta c_i (%)                  pi_i                  mu_i
+ Austria                              +0.00         -2.353468e+08          5.221377e+07
+ Belgium                              +0.00         -1.096380e+08          5.651880e+07
+ Czechia                              +0.00         -3.025042e+05          5.750992e+07
+ Denmark                              +0.00         -9.732631e+06          5.803890e+07
+ Estonia                              +0.00          2.428754e+10          5.114315e+07
+ Finland                              +0.00          5.313980e+08         -4.665626e+07
+ France                               +0.00         -1.104075e+08          5.005336e+07
+ Germany                              +0.00         -2.497650e+08          5.544293e+07
+ Hungary                              +0.00          3.888468e+07          4.051848e+07
+ Italy                                +0.00         -2.951549e+08          3.721600e+07
+ Lithuania                            +0.00          1.151870e+07          5.424865e+07
+ Luxembourg                           +0.00         -1.455302e+07          5.863799e+07
+ Netherlands                          +0.00         -2.849617e+07          5.031318e+07
+ Poland                               +0.00          5.982153e+05          5.610643e+07
+ Portugal                             +0.00         -4.703243e+06          5.751289e+07
+ Romania                              +0.00         -1.212096e+07          5.828039e+07
+ Slovakia                             +0.00          3.277632e+06          4.134866e+07
+ Slovenia                             +0.00          2.065920e+07          5.280447e+07
+ Spain                                +0.00          3.028326e+06          5.180891e+07
+ Sweden                               +0.00         -1.528839e+08          5.011376e+07
+--------------------------------------------------------------------------------------------------------------
+ Spearman(pi_i, Delta c_i) over the 20 unique members: n.d. (fewer than 8 unique members with |Delta c_i| > 5%: 0 member(s))
+ Spearman(mu_i, Delta c_i) over the 20 unique members: n.d. (fewer than 8 unique members with |Delta c_i| > 5%: 0 member(s))
+==============================================================================================================
+
+==============================================================================================================
+TREND TABLE 4 - UTILITY CHANGE vs |Delta c_i| | SECTOR 870323 | EXPERIMENT 1
+==============================================================================================================
+--------------------------------------------------------------------------------------------------------------
+ Member                       Delta c_i (%)     Delta u_i (%)
+ Austria                              +0.00             +9.39
+ Belgium                              +0.00             +4.17
+ Bulgaria                             +0.00             -0.95
+ Croatia                              +0.00             -0.95
+ Czechia                              +0.00             -0.33
+ Denmark                              +0.00             -0.67
+ Estonia                              +0.00             -0.01
+ Finland                              +0.00            +17.29
+ France                               +0.00            +10.93
+ Germany                              +0.00             +3.33
+ Hungary                              +0.00            +15.54
+ Ireland                              +0.00             -0.51
+ Italy                                +0.00            +19.55
+ Latvia                               +0.00             -0.01
+ Lithuania                            +0.00             -0.40
+ Luxembourg                           +0.00             -0.32
+ Netherlands                          +0.00            +13.08
+ Poland                               +0.00             -0.41
+ Portugal                             +0.00             -0.51
+ Romania                              +0.00             -0.41
+ Slovakia                             +0.00             +3.99
+ Slovenia                             +0.00             -0.30
+ Spain                                +0.00             +2.20
+ Sweden                               +0.00             +9.59
+--------------------------------------------------------------------------------------------------------------
+ Spearman(|Delta u_i|, |Delta c_i|) over the 24 members: n.d. (fewer than 8 members with |Delta c_i| > 5%: 0 member(s))
+==============================================================================================================
+
  Creating the images...
 
 ####################################################################################################
- IMAGES CREATED (flows, utilities, export shares):
-   c:\Users\giorg\Desktop\Project\fig_flows_exp1.jpg
-   c:\Users\giorg\Desktop\Project\fig_utilities_exp1.jpg
-   c:\Users\giorg\Desktop\Project\fig_exports_exp1.jpg
+ IMAGES CREATED (flows, utilities, export shares, reallocation vs centrality, multipliers):
+   fig_flows_exp1.jpg
+   fig_utilities_exp1.jpg
+   fig_exports_exp1.jpg
+   fig_realloc_exp1.jpg
+   fig_multipliers_exp1.jpg
+   fig_realloc_all.jpg
+   fig_utilities_all.jpg
+   fig_utilities_grouped.jpg
+   fig_multipliers_all.jpg
 ####################################################################################################
 
  Utilities at the baseline: positive = 24, negative = 0

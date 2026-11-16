@@ -37,20 +37,17 @@ K_MARGIN = 1.5
 
 DELTA_CDES = 0.5
 
-# THETA CALIBRATION ON THE EQUILIBRIUM: theta is increased by this factor until every member
-# has a strictly positive utility at the Nash equilibrium (the baseline positivity is already
-# guaranteed by theta_0 = THETA_SAFETY * max_i theta_i^*)
 THETA_EQ_STEP = 1.5
 THETA_EQ_MAX_ITER = 60
 
 # EXPERIMENT 3: deterministic perturbation of c0
-EXP3_FRACTION = 0.10             # relative perturbation of the selected countries
-EXP3_TOP_K = 5                   # case 1: number of top exporters among the members of S whose centrality is decreased
-EXP3_ITALY_NAME = "italy"        # case 2: country whose centrality is increased
-MEMBER_MARK = "\u2022"            # bullet marking the members of the coalition S in the new tables
+EXP3_FRACTION = 0.10
+EXP3_TOP_K = 5
+EXP3_ITALY_NAME = "italy"
+MEMBER_MARK = "\u2022"
 
 LAMBDA_FRAC = 0.2
-LB_TOL = 0.01                    # an arc is 'at the lower bound' if w_ij - ell_ij <= LB_TOL * ell_ij (solver tolerance)
+LB_TOL = 0.01
 
 # PRUNING LEVELS AND PERCENT FORMAT
 PRUNING_FRACTIONS = (0.10,)
@@ -1126,10 +1123,10 @@ def compute_lower_bound_multipliers(S, out_neighbors, weight0, in_from_all, w_st
     return nu
 
 
-KKT_FEAS_TOL = 1e-6   # primal feasibility (budget, centrality, lower bounds), relative to the largest budget (Gurobi FeasibilityTol)
-KKT_SIGN_TOL = 1e-6   # nu_ij >= 0 holds up to KKT_SIGN_TOL * max(1, max_j |nu_ij|) (member i)
-KKT_COMP_TOL = 1e-4   # complementarity nu_ij (w_ij - ell_ij) = 0 holds up to KKT_COMP_TOL * |P^S| (barrier accuracy)
-LICQ_C_TOL = 1e-9     # two centralities c_r, c_s are 'different' if |c_r - c_s| > LICQ_C_TOL * max(c_r, c_s)
+KKT_FEAS_TOL = 1e-6
+KKT_SIGN_TOL = 1e-6
+KKT_COMP_TOL = 1e-4
+LICQ_C_TOL = 1e-9
 
 
 def verify_multipliers(S, out_neighbors, w_star, c, ell, T0, rho0, nu, multipliers, P_S_opt):
@@ -1226,6 +1223,22 @@ def print_c_vector(c_vec, nodes, id_to_name, label):
     print("-" * ROW_W)
 
 
+def potential_value(S, out_neighbors, weight0, in_from_all, w, gamma_j, alpha_j, beta_ij):
+    """P^S(w) = sum_i sum_j [alpha_j w_ij - beta_ij (w_ij - w0_ij)^2]
+                - sum_j gamma_j [ sum_{i<k in S} w_ij w_kj + (sum_{i in S} w_ij) * outsiders_j ]
+       (same expression as in solve_coalition_game, evaluated at any w)."""
+    total = 0.0
+    into = {}
+    for i in S:
+        for j in out_neighbors[i]:
+            total += alpha_j[j] * w[(i, j)] - beta_ij[(i, j)] * (w[(i, j)] - weight0[(i, j)]) ** 2
+            into.setdefault(j, []).append(w[(i, j)])
+    for j, flows in into.items():
+        outsiders = sum(w0kj for (k, w0kj) in in_from_all[j] if k not in S)
+        total -= gamma_j[j] * ((sum(flows) ** 2 - sum(f * f for f in flows)) / 2.0 + sum(flows) * outsiders)
+    return total
+
+
 def print_results(S, id_to_name, out_neighbors, weight0, in_from_all, nodes,
                    w_star, P_S_opt, gamma_j, alpha_j, beta_ij, dominant, multipliers):
     NAME_W = 32
@@ -1244,6 +1257,11 @@ def print_results(S, id_to_name, out_neighbors, weight0, in_from_all, nodes,
     print(f" |S| = {len(S)} member(s); uniqueness (Prop. 2): "
           f"{'YES' if dominant else 'NOT GUARANTEED'}")
     print(f" P^S(w_S^NE; c) = {P_S_opt:.6f}")
+    P_S_base = potential_value(S, out_neighbors, weight0, in_from_all,
+                               {(i, j): weight0[(i, j)] for i in S for j in out_neighbors[i]},
+                               gamma_j, alpha_j, beta_ij)
+    print(f" P^S(w_S^0)     = {P_S_base:.6f} (baseline) | variation baseline -> NE = "
+          f"{((P_S_opt - P_S_base) / abs(P_S_base) * 100.0 if P_S_base != 0 else float('nan')):+.4f}%")
 
     u_baseline = {i: member_utility(i, weight0, S, out_neighbors, weight0,
                                      in_from_all, gamma_j, alpha_j, beta_ij)
@@ -1652,8 +1670,6 @@ def calibrate_theta_equilibrium(case, configure):
                        f"{THETA_EQ_MAX_ITER} steps (last theta = {theta:.3e})")
 
 
-# PLOTS OF THE RUN: the images are made by a separate Python process (the plotting code below), because
-# matplotlib/numpy crash inside the process in which Gurobi is loaded (Windows DLL conflict).
 PLOT_CODE = r'''import json
 import os
 import sys
@@ -1666,8 +1682,8 @@ import numpy as np
 
 plt.rcParams.update({"font.size": 9, "axes.titlesize": 10, "figure.dpi": 150})
 
-LINTHRESH_PCT = 1.0          # linear region of the symmetric log scale of the utilities (in %)
-ZERO_TOL = 1e-9              # a multiplier is "zero" if |m| <= ZERO_TOL * max |m| (unique multipliers)
+LINTHRESH_PCT = 1.0
+ZERO_TOL = 1e-9
 
 
 
@@ -1806,13 +1822,341 @@ def plot_utilities(run):
     return fig
 
 
+def _realloc_points(run):
+    """Points (iso3, Delta c_i in %, reallocated export in %, perturbed?) of the members, or None without data."""
+    cen = run.get("centrality")
+    if not cen:
+        return None
+    exporters = {}
+    for a in run["arcs"]:
+        exporters.setdefault(a["exporter"], []).append(a)
+    perturbed = set(run.get("perturbed_members", []))
+    pts = []
+    for c in cen:
+        arcs = exporters.get(c["country"], [])
+        total0 = sum(a["w0"] for a in arcs)
+        if total0 <= 0 or c["c0"] <= 0:
+            continue
+        real = 100.0 * sum(abs(a["wNE"] - a["w0"]) for a in arcs) / 2.0 / total0
+        pts.append((c["iso3"], 100.0 * (c["c_target"] / c["c0"] - 1.0), real, c["country"] in perturbed))
+    return pts
+
+
+REALLOC_THR = 5.0
+
+
+def _draw_realloc(ax, run, pts, xmax, ymax, legend_fs=7.5):
+    """x = required change of centrality Delta c_i = c_target_i / c0_i - 1 (%), symmetric log scale;
+    y = reallocated export, i.e. sum_j |w_ij^NE - w_ij^0| / 2 as a percentage of the baseline export of i."""
+    thr = REALLOC_THR
+    ax.set_xscale("symlog", linthresh=thr, linscale=1.0)
+    ax.set_xlim(-xmax, xmax)
+    ax.set_ylim(-0.04 * ymax, ymax * 1.12)
+    ax.axvline(0, color="black", lw=0.6)
+    for s_ in (-thr, thr):
+        ax.axvline(s_, color="grey", lw=0.6, ls="--")
+    groups = (("centrality increase (> 5%)", lambda d: d > thr, "tab:blue"),
+              ("centrality decrease (> 5%)", lambda d: d < -thr, "tab:orange"),
+              ("|change| <= 5%", lambda d: abs(d) <= thr, "tab:grey"))
+    for label, test, color in groups:
+        sel = [p for p in pts if test(p[1])]
+        if sel:
+            ax.scatter([p[1] for p in sel], [p[2] for p in sel], s=26, color=color, alpha=0.9,
+                       edgecolors=["black" if p[3] else "none" for p in sel],
+                       linewidths=[1.2 if p[3] else 0 for p in sel], label=f"{label}: {len(sel)} members", zorder=3)
+    ticks = [t for t in (-100, -10, -5, 0, 5, 10, 100) if abs(t) <= xmax]
+    if 50 <= xmax < 100:
+        ticks = sorted(ticks + [-50, 50])
+    ax.set_xticks(ticks)
+    ax.set_xticklabels([f"{t:+d}" if t else "0" for t in ticks])
+    ax.grid(True, which="major", lw=0.3, alpha=0.5)
+    return ax.legend(loc="upper center", frameon=False, fontsize=legend_fs)
+
+
+def _place_labels(fig, ax, pts, leg):
+    """Labels next to the points (first free position among several); the points too close to each other get their
+    label in a column on the side of the plot with more room, joined to the point by a thin line."""
+    renderer = fig.canvas.get_renderer()
+    axbox = ax.get_window_extent(renderer)
+    placed = [leg.get_window_extent(renderer)]
+    cand = []
+    for r in (4, 10, 17, 25, 34, 44, 56, 70, 86, 104):
+        for ang in (0, 180, 45, 135, -45, -135, 90, -90, 22, 158, 68, 112, -22, -158, -68, -112):
+            cand.append((r, ang))
+    unplaced = []
+    for name, x, y, _ in sorted(pts, key=lambda p: (p[2], p[1])):
+        done = False
+        for r, ang in cand:
+            dx, dy = r * np.cos(np.radians(ang)), r * np.sin(np.radians(ang))
+            ha = "left" if dx > 1 else ("right" if dx < -1 else "center")
+            va = "bottom" if dy > 1 else ("top" if dy < -1 else "center")
+            t = ax.annotate(name, (x, y), xytext=(dx, dy), textcoords="offset points", ha=ha, va=va,
+                            fontsize=6.5, zorder=4,
+                            arrowprops=dict(arrowstyle="-", lw=0.4, color="grey") if r > 4 else None)
+            bb = t.get_window_extent(renderer).expanded(1.05, 1.15)
+            inside = axbox.contains(bb.x0, bb.y0) and axbox.contains(bb.x1, bb.y1)
+            if inside and not any(bb.overlaps(o) for o in placed):
+                placed.append(bb)
+                done = True
+                break
+            t.remove()
+        if not done:
+            unplaced.append((name, x, y))
+    if unplaced:
+        right = np.median([p[1] for p in pts]) <= 0
+        per_col = 9
+        for n_, (name, x, y) in enumerate(sorted(unplaced, key=lambda p: p[2])):
+            col, row = divmod(n_, per_col)
+            ax_x = (0.66 + 0.1 * col) if right else (0.04 + 0.1 * col)
+            ax.annotate(name, (x, y), xycoords="data", xytext=(ax_x, 0.06 + 0.075 * row),
+                        textcoords="axes fraction", fontsize=6.5, ha="left", va="center", zorder=4,
+                        arrowprops=dict(arrowstyle="-", lw=0.4, color="grey", shrinkA=0, shrinkB=2))
+
+
+XLABEL_REALLOC = r"required change of centrality $\Delta c_i = c_i^{target}/c_i^0-1$ (%), symmetric log scale"
+YLABEL_REALLOC = "reallocated export (% of the baseline export)"
+
+
+def plot_realloc(run):
+    pts = _realloc_points(run)
+    if pts is None:
+        return None
+    xmax = max([abs(p[1]) for p in pts] + [10.0]) * 1.5
+    ymax = max([p[2] for p in pts] + [5.0])
+    fig, ax = plt.subplots(figsize=(6.6, 4.8))
+    leg = _draw_realloc(ax, run, pts, xmax, ymax)
+    ax.set_xlabel(XLABEL_REALLOC)
+    ax.set_ylabel(YLABEL_REALLOC)
+    ax.set_title(f"{_title(run)}\nreallocated export vs required change of centrality")
+    fig.tight_layout()
+    _place_labels(fig, ax, pts, leg)
+    return fig
+
+
+def plot_realloc_all(runs):
+    """2 x 2 panel with the four experiments on the same axes."""
+    allpts = [_realloc_points(r) for r in runs]
+    xmax = max([abs(p[1]) for pts in allpts for p in pts] + [10.0]) * 1.5
+    ymax = max([p[2] for pts in allpts for p in pts] + [5.0])
+    fig, axes = plt.subplots(2, 2, figsize=(11.0, 8.6), sharex=True, sharey=True)
+    legs = []
+    for ax, run, pts in zip(axes.ravel(), runs, allpts):
+        legs.append(_draw_realloc(ax, run, pts, xmax, ymax, legend_fs=7))
+        ax.set_title(_title(run), fontsize=9)
+    for ax in axes[1, :]:
+        ax.set_xlabel(XLABEL_REALLOC, fontsize=8)
+    for ax in axes[:, 0]:
+        ax.set_ylabel(YLABEL_REALLOC, fontsize=8)
+    for ax in axes.ravel():
+        ax.tick_params(labelbottom=True, labelleft=True)
+    fig.tight_layout()
+    for ax, pts, leg in zip(axes.ravel(), allpts, legs):
+        _place_labels(fig, ax, pts, leg)
+    return fig
+
+
+def _utilities_values(run):
+    names = [u["country"] for u in run["utilities"]]
+    vals = np.array([100.0 * (u["uNE"] - u["u0"]) / abs(u["u0"]) if u["u0"] != 0 else np.nan
+                     for u in run["utilities"]])
+    order = sorted(range(len(names)), key=lambda k: names[k])
+    return [names[k] for k in order], vals[order]
+
+
+def plot_utilities_all(runs):
+    """The utility bars of the four experiments, one below the other, on the same (symmetric log) y axis."""
+    data = [_utilities_values(r) for r in runs]
+    allv = np.concatenate([v[np.isfinite(v)] for _, v in data])
+    ylim = (min(allv.min(), -1) * 1.3, max(allv.max(), 1) * 1.3)
+    fig, axes = plt.subplots(len(runs), 1, figsize=(7.2, 10.2), sharex=True)
+    for ax, run, (names, vals) in zip(axes, runs, data):
+        x = np.arange(len(names))
+        bars = ax.bar(x, vals, color=np.where(vals >= 0, "tab:green", "tab:red"), width=0.75)
+        perturbed = set(run.get("perturbed_members", []))
+        for name, bar in zip(names, bars):
+            if name in perturbed:
+                bar.set_hatch("///")
+                bar.set_edgecolor("black")
+                bar.set_linewidth(0.8)
+        ax.axhline(0, color="black", lw=0.6)
+        ax.set_yscale("symlog", linthresh=LINTHRESH_PCT)
+        ax.set_ylim(*ylim)
+        ax.set_title(_title(run), fontsize=9)
+        ax.grid(True, axis="y", which="major", lw=0.3, alpha=0.5)
+        ax.set_ylabel(r"$\Delta u_i$ (%), symlog", fontsize=8)
+        if perturbed:
+            ax.legend(handles=[Patch(facecolor="white", edgecolor="black", hatch="///",
+                                     label="perturbed member(s) of the coalition")],
+                      loc="lower right", frameon=False, fontsize=7)
+    axes[-1].set_xticks(np.arange(len(data[0][0])))
+    axes[-1].set_xticklabels(data[0][0], rotation=90)
+    fig.tight_layout()
+    return fig
+
+
+def plot_utilities_grouped(runs):
+    """One full-page panel: horizontal bars, countries in alphabetical order, four bars per country (one per
+    experiment), common symmetric log axis."""
+    data = [_utilities_values(r) for r in runs]
+    names = data[0][0]
+    colors = ["tab:green", "#4d4d4d", "tab:blue", "tab:red"]
+    allv = np.concatenate([v[np.isfinite(v)] for _, v in data])
+    xlim = (min(allv.min(), -1) * 1.4, max(allv.max(), 1) * 1.4)
+    n, m = len(names), len(runs)
+    h = 0.8 / m
+    fig, ax = plt.subplots(figsize=(7.0, 9.4))
+    handles = []
+    for e, (run, (nm, vals)) in enumerate(zip(runs, data)):
+        y = np.arange(n) - 0.4 + h * (e + 0.5)
+        bars = ax.barh(y, vals, height=h * 0.92, color=colors[e])
+        perturbed = set(run.get("perturbed_members", []))
+        for name, bar in zip(nm, bars):
+            if name in perturbed:
+                bar.set_hatch("///")
+                bar.set_edgecolor("black")
+                bar.set_linewidth(0.6)
+        handles.append(Patch(facecolor=colors[e], label=_title(run)))
+    if any(r.get("perturbed_members") for r in runs):
+        handles.append(Patch(facecolor="white", edgecolor="black", hatch="///", label="perturbed member(s)"))
+    ax.axvline(0, color="black", lw=0.6)
+    ax.set_xscale("symlog", linthresh=LINTHRESH_PCT)
+    ax.set_xlim(*xlim)
+    ax.set_yticks(np.arange(n))
+    ax.set_yticklabels(names, fontsize=10)
+    ax.set_ylim(n - 0.5, -0.5)
+    ax.grid(True, axis="x", which="major", lw=0.3, alpha=0.5)
+    ax.set_xlabel(r"$\Delta u_i$ (%), symmetric log scale")
+    ax.legend(handles=handles, loc="upper center", bbox_to_anchor=(0.5, -0.07), ncol=2, frameon=False,
+              fontsize=8)
+    fig.tight_layout()
+    return fig
+
+
+MULT_POS, MULT_NEG = "tab:green", "tab:red"
+
+
+def _mult_rows(run):
+    """Members with unique multipliers, ordered by increasing Delta c_i (alphabetical if Delta c_i = 0 for all)."""
+    mult, cen = run.get("multipliers"), run.get("centrality")
+    if not mult or not cen:
+        return None, 0
+    info = {c["country"]: c for c in cen}
+    rows = []
+    for m in mult["members"]:
+        if not m["unique"] or m["country"] not in info:
+            continue
+        c = info[m["country"]]
+        dc = 100.0 * (c["c_target"] / c["c0"] - 1.0) if c["c0"] else 0.0
+        rows.append((m["country"], c["iso3"], dc, m["pi"], m["mu"]))
+    if not rows:
+        return None, 0
+    rows.sort(key=lambda r: (round(r[2], 6), r[0]))
+    return rows, len(mult["members"]) - len(rows)
+
+
+def _draw_multipliers(ax_pi, ax_mu, run, rows, fs=8, tick_fs=8):
+    """pi_i (top axis, symmetric log) and mu_i (bottom axis) as bars; perturbed members hatched."""
+    use_dc = any(abs(r[2]) > 1e-6 for r in rows)
+    perturbed = set(run.get("perturbed_members", []))
+    labels = [f"{r[1]} ({r[2]:+.1f}%)" if use_dc else r[1] for r in rows]
+    x = np.arange(len(rows))
+    for ax, k, name in ((ax_pi, 3, r"$\pi_i$"), (ax_mu, 4, r"$\mu_i$")):
+        vals = np.array([r[k] for r in rows])
+        bars = ax.bar(x, vals, color=np.where(vals >= 0, MULT_POS, MULT_NEG), width=0.75)
+        for r, bar in zip(rows, bars):
+            if r[0] in perturbed:
+                bar.set_hatch("///")
+                bar.set_edgecolor("black")
+                bar.set_linewidth(0.8)
+        ax.axhline(0, color="black", lw=0.6)
+        ax.grid(True, axis="y", which="major", lw=0.3, alpha=0.5)
+        ax.tick_params(axis="y", labelsize=tick_fs)
+        if k == 3:
+            nz = np.abs(vals[np.abs(vals) > 0])
+            ax.set_yscale("symlog", linthresh=0.1 * float(np.median(nz)) if nz.size else 1.0)
+            lo, hi = ax.get_ylim()
+            ax.set_ylim(lo * 1.5 if lo < 0 else lo, hi * 2.0 if hi > 0 else hi)
+            ax.set_ylabel(name + ", symlog", fontsize=fs)
+        else:
+            ax.set_ylabel(name, fontsize=fs)
+            ax.yaxis.get_offset_text().set_fontsize(tick_fs)
+    ax_mu.set_xticks(x)
+    ax_mu.set_xticklabels(labels, rotation=90, fontsize=tick_fs)
+    ax_pi.tick_params(labelbottom=False)
+    return use_dc, bool(perturbed & {r[0] for r in rows})
+
+
+def _mult_legend_handles(any_perturbed):
+    handles = [Patch(facecolor=MULT_POS, label="positive"), Patch(facecolor=MULT_NEG, label="negative")]
+    if any_perturbed:
+        handles.append(Patch(facecolor="white", edgecolor="black", hatch="///", label="perturbed member(s)"))
+    return handles
+
+
+def plot_multipliers(run):
+    """pi_i (top) and mu_i (bottom) of the members with unique multipliers, ordered by increasing
+    required change of centrality Delta c_i (alphabetical order when Delta c_i = 0 for all members)."""
+    rows, n_omitted = _mult_rows(run)
+    if rows is None:
+        return None
+    fig, axes = plt.subplots(2, 1, figsize=(7.2, 6.6), sharex=True)
+    use_dc, any_pert = _draw_multipliers(axes[0], axes[1], run, rows)
+    axes[0].set_title(_title(run) + "\nmultipliers of the budget and centrality constraints", fontsize=9)
+    xl = ("members ordered by increasing $\\Delta c_i$ (in brackets)" if use_dc
+          else "members in alphabetical order ($\\Delta c_i = 0$ for all)")
+    if n_omitted:
+        xl += f"; {n_omitted} member(s) with non-unique multipliers omitted"
+    axes[1].set_xlabel(xl, fontsize=8)
+    axes[0].legend(handles=_mult_legend_handles(any_pert), loc="upper right", frameon=False, fontsize=7)
+    fig.tight_layout()
+    return fig
+
+
+def plot_multipliers_all(runs):
+    """One page: 2 x 2 grid (one cell per experiment), each cell with pi_i (top) and mu_i (bottom)."""
+    fig = plt.figure(figsize=(7.2, 9.6))
+    outer = fig.add_gridspec(2, 2, left=0.095, right=0.985, top=0.955, bottom=0.125, wspace=0.42, hspace=0.34)
+    any_pert = False
+    for idx, run in enumerate(runs):
+        rows, n_omitted = _mult_rows(run)
+        if rows is None:
+            continue
+        inner = outer[idx // 2, idx % 2].subgridspec(2, 1, hspace=0.08)
+        ax_pi = fig.add_subplot(inner[0])
+        ax_mu = fig.add_subplot(inner[1], sharex=ax_pi)
+        use_dc, ap = _draw_multipliers(ax_pi, ax_mu, run, rows, fs=7, tick_fs=6)
+        any_pert = any_pert or ap
+        note = f"\n{n_omitted} member(s) with non-unique multipliers omitted" if n_omitted else ""
+        ax_pi.set_title(_title(run) + note, fontsize=7)
+    fig.legend(handles=_mult_legend_handles(any_pert), loc="lower center", ncol=3, frameon=False, fontsize=8,
+               bbox_to_anchor=(0.5, 0.0))
+    return fig
+
+
 json_path, folder = sys.argv[1], sys.argv[2]
 with open(json_path, encoding="utf-8") as fh:
     run = json.load(fh)
 figs = [("fig_flows", plot_flows(run)), ("fig_utilities", plot_utilities(run)),
-        ("fig_exports", plot_exports(run))]
-for name, fig in figs:
-    path = os.path.join(folder, f"{name}_{run['key']}.jpg")
+        ("fig_exports", plot_exports(run)), ("fig_realloc", plot_realloc(run)),
+        ("fig_multipliers", plot_multipliers(run))]
+figs = [(name, fig) for name, fig in figs if fig is not None]
+# combined figures: produced when the data of the four experiments are all available in the folder
+KEYS = ["exp1", "exp2", "exp3_case1", "exp3_case2"]
+paths = [os.path.join(folder, f"plot_data_{k}.json") for k in KEYS]
+if all(os.path.exists(q) for q in paths):
+    runs_all = []
+    for q in paths:
+        with open(q, encoding="utf-8") as fh:
+            runs_all.append(json.load(fh))
+    if all(r.get("centrality") for r in runs_all):
+        figs.append(("fig_realloc", plot_realloc_all(runs_all), "all"))
+        figs.append(("fig_utilities", plot_utilities_all(runs_all), "all"))
+        figs.append(("fig_utilities", plot_utilities_grouped(runs_all), "grouped"))
+        figs.append(("fig_multipliers", plot_multipliers_all(runs_all), "all"))
+for item in figs:
+    name, fig = item[0], item[1]
+    tag = item[2] if len(item) > 2 else run['key']
+    path = os.path.join(folder, f"{name}_{tag}.jpg")
     fig.savefig(path, bbox_inches="tight", dpi=200, pil_kwargs={"quality": 95})
     print(path)
 '''
@@ -1821,8 +2165,6 @@ for name, fig in figs:
 def make_outputs(run, folder):
     import subprocess
     json_path = os.path.join(folder, f"plot_data_{run['key']}.json")
-    # when the script is run from VS Code the conda environment is not activated: its DLL folders (MKL, used by
-    # numpy) are missing from PATH and numpy.linalg crashes (error 0xc06d007f). They are added here.
     prefix = os.path.dirname(os.path.abspath(sys.executable))
     extra = [prefix] + [os.path.join(prefix, "Library", d) for d in ("bin", "mingw-w64\\bin", "usr\\bin")] \
         + [os.path.join(prefix, "Scripts")]
@@ -1870,11 +2212,14 @@ def save_plot_data(case, S, nodes, id_to_name, out_neighbors, weight0, w_star, u
         description = f"Italy, +{EXP3_FRACTION:.0%}"
     else:
         description = ""
+    centrality = [{'country': country_name(i, nodes, id_to_name),
+                   'iso3': code_to_iso3.get(int(nodes[i]), country_name(i, nodes, id_to_name)),
+                   'c0': float(case['c0'][i]), 'c_target': float(case['c_target'][i])} for i in S]
     mult_data = None
     if multipliers is not None and nu is not None:
         members = []
         for i in S:
-            unique = certificate[i]['unique']      # Prop. 4 (valid KKT) and Prop. 5 (LICQ)
+            unique = certificate[i]['unique']
             members.append({'country': country_name(i, nodes, id_to_name), 'out_degree': len(out_neighbors[i]),
                             'mu': float(multipliers['mu'][i]), 'pi': float(multipliers['pi'][i]),
                             'unique': bool(unique)})
@@ -1886,7 +2231,7 @@ def save_plot_data(case, S, nodes, id_to_name, out_neighbors, weight0, w_star, u
     data = {'key': key, 'label': label, 'description': description, 'perturbed_members': perturbed_members,
             'sector': case['code'], 'theta': float(theta),
             'lambda_frac': float(case['lambda_frac']), 'arcs': arcs, 'utilities': utilities,
-            'multipliers': mult_data}
+            'multipliers': mult_data, 'centrality': centrality}
     path = os.path.join(os.path.dirname(os.path.abspath(__file__)), f"plot_data_{key}.json")
     with open(path, "w", encoding="utf-8") as fh:
         json.dump(data, fh, ensure_ascii=False, indent=1)
@@ -1931,6 +2276,142 @@ def print_multipliers_table(plot_data):
           f"not guaranteed (Prop. 5 fails or Prop. 4 not verified)\n (excluded from all the other columns). Minimum/maximum over the "
           f"unique multipliers ({len(uniq)}/{len(mem)} members, {len(a_uniq)}/{len(arcs)} arcs);"
           f" for nu_ij over the active arcs.")
+    print("=" * width)
+
+
+TREND_DC_MIN = 0.05
+TREND_MIN_MEMBERS = 8
+TREND_MIN_ARCS = 4
+
+
+def _average_ranks(x):
+    x = [float(v) for v in x]
+    order = sorted(range(len(x)), key=lambda k: x[k])
+    ranks = [0.0] * len(x)
+    k = 0
+    while k < len(x):
+        m = k
+        while m + 1 < len(x) and x[order[m + 1]] == x[order[k]]:
+            m += 1
+        for q in range(k, m + 1):
+            ranks[order[q]] = 0.5 * (k + m) + 1.0
+        k = m + 1
+    return ranks
+
+
+def spearman_rank(a, b):
+    """Spearman rank correlation (average ranks for ties); None if fewer than 3 points or a constant series.
+       Pure Python on purpose: np.corrcoef crashed the interpreter in some Anaconda/MKL installations."""
+    if len(a) < 3:
+        return None
+    ra, rb = _average_ranks(a), _average_ranks(b)
+    n = len(ra)
+    ma, mb = math.fsum(ra) / n, math.fsum(rb) / n
+    sa = math.fsum((u - ma) ** 2 for u in ra)
+    sb = math.fsum((v - mb) ** 2 for v in rb)
+    if sa == 0 or sb == 0:
+        return None
+    return math.fsum((u - ma) * (v - mb) for u, v in zip(ra, rb)) / math.sqrt(sa * sb)
+
+
+def print_centrality_trend_tables(case, S, nodes, id_to_name, out_neighbors, weight0, w_star,
+                                  u_base, u_ne, multipliers, certificate):
+    """Four tables that compare, member by member, the change of centrality Delta c_i = c_target_i / c0_i - 1
+       with (1) the direction of the flow shifts, (2) the reallocated export, (3) the multipliers pi_i, mu_i
+       (unique members), (4) the utility change. Descriptive rank correlations (no effect on the results)."""
+    c0, ct = case['c0'], case['c_target']
+    names = {i: country_name(i, nodes, id_to_name) for i in S}
+    dc = {i: (float(ct[i]) / float(c0[i]) - 1.0) * 100.0 for i in S}
+    T0 = {i: sum(weight0[(i, j)] for j in out_neighbors[i]) for i in S}
+    realloc = {i: sum(abs(w_star[(i, j)] - weight0[(i, j)]) for j in out_neighbors[i]) / 2.0 / T0[i] * 100.0
+               for i in S}
+    du = {i: ((u_ne[p] - u_base[p]) / abs(u_base[p]) * 100.0 if u_base[p] != 0 else float('nan'))
+          for p, i in enumerate(S)}
+    n_changing = sum(1 for i in S if abs(dc[i]) > 100.0 * TREND_DC_MIN)
+    enough = n_changing >= TREND_MIN_MEMBERS
+    why = (f"n.d. (fewer than {TREND_MIN_MEMBERS} members with |Delta c_i| > {TREND_DC_MIN:.0%}: "
+           f"{n_changing} member(s))")
+
+    def fmt(r):
+        return "n.d." if r is None else f"{r:+.2f}"
+
+    width = 110
+    label = f"SECTOR {case['code']} | EXPERIMENT {case['experiment']}" + \
+            (f".{case['exp3_case']}" if case['experiment'] == 3 else "")
+
+    # 1) direction of the flows
+    print("\n" + "=" * width)
+    print(f"TREND TABLE 1 - FLOW SHIFTS vs Delta c_i | {label}")
+    print("=" * width)
+    print(f" For each member with |Delta c_i| > {TREND_DC_MIN:.0%}: Spearman correlation, over its importers j, between "
+          f"c^target_j and the shift of the export share (w_ij^NE - w_ij^0)/sum_j w_ij^0.")
+    print(f" Concordant = the correlation has the sign of Delta c_i (members with at least {TREND_MIN_ARCS} importers).")
+    print("-" * width)
+    print(f" {'Member':<26}{'Delta c_i (%)':>16}{'Importers':>12}{'Spearman':>12}{'Concordant':>14}")
+    conc = tot = 0
+    for i in S:
+        if abs(dc[i]) <= 100.0 * TREND_DC_MIN:
+            continue
+        nbrs = list(out_neighbors[i])
+        if len(nbrs) >= TREND_MIN_ARCS:
+            r = spearman_rank([float(ct[j]) for j in nbrs],
+                              [(w_star[(i, j)] - weight0[(i, j)]) / T0[i] for j in nbrs])
+        else:
+            r = None
+        ok = "-" if r is None else ("yes" if (r > 0) == (dc[i] > 0) else "no")
+        if r is not None:
+            tot += 1
+            conc += (ok == "yes")
+        print(f" {names[i]:<26}{dc[i]:>+16.2f}{len(nbrs):>12d}{fmt(r):>12}{ok:>14}")
+    print("-" * width)
+    print(f" Concordant members: {conc} of {tot}" if tot else " Concordant members: n.d. (no member with |Delta c_i| above the threshold and enough importers)")
+    print("=" * width)
+
+    # 2) reallocated export
+    print("\n" + "=" * width)
+    print(f"TREND TABLE 2 - REALLOCATED EXPORT vs |Delta c_i| | {label}")
+    print("=" * width)
+    print(f" Reallocated = sum_j |w_ij^NE - w_ij^0| / 2, as a percentage of the baseline export of member i.")
+    print("-" * width)
+    print(f" {'Member':<26}{'Delta c_i (%)':>16}{'Reallocated (%)':>18}")
+    for i in S:
+        print(f" {names[i]:<26}{dc[i]:>+16.2f}{realloc[i]:>18.2f}")
+    print("-" * width)
+    r2 = spearman_rank([abs(dc[i]) for i in S], [realloc[i] for i in S]) if enough else None
+    print(f" Spearman(reallocated export, |Delta c_i|) over the {len(S)} members: {fmt(r2) if enough else why}")
+    print("=" * width)
+
+    # 3) multipliers of the unique members
+    uniq = [i for i in S if certificate[i]['unique']]
+    print("\n" + "=" * width)
+    print(f"TREND TABLE 3 - MULTIPLIERS pi_i, mu_i vs Delta c_i (unique multipliers only) | {label}")
+    print("=" * width)
+    print("-" * width)
+    print(f" {'Member':<26}{'Delta c_i (%)':>16}{'pi_i':>22}{'mu_i':>22}")
+    for i in uniq:
+        print(f" {names[i]:<26}{dc[i]:>+16.2f}{multipliers['pi'][i]:>22.6e}{multipliers['mu'][i]:>22.6e}")
+    print("-" * width)
+    n_u_changing = sum(1 for i in uniq if abs(dc[i]) > 100.0 * TREND_DC_MIN)
+    enough_u = n_u_changing >= TREND_MIN_MEMBERS
+    why_u = (f"n.d. (fewer than {TREND_MIN_MEMBERS} unique members with |Delta c_i| > {TREND_DC_MIN:.0%}: "
+             f"{n_u_changing} member(s))")
+    rp = spearman_rank([dc[i] for i in uniq], [multipliers['pi'][i] for i in uniq]) if enough_u else None
+    rm = spearman_rank([dc[i] for i in uniq], [multipliers['mu'][i] for i in uniq]) if enough_u else None
+    print(f" Spearman(pi_i, Delta c_i) over the {len(uniq)} unique members: {fmt(rp) if enough_u else why_u}")
+    print(f" Spearman(mu_i, Delta c_i) over the {len(uniq)} unique members: {fmt(rm) if enough_u else why_u}")
+    print("=" * width)
+
+    # 4) utilities
+    print("\n" + "=" * width)
+    print(f"TREND TABLE 4 - UTILITY CHANGE vs |Delta c_i| | {label}")
+    print("=" * width)
+    print("-" * width)
+    print(f" {'Member':<26}{'Delta c_i (%)':>16}{'Delta u_i (%)':>18}")
+    for i in S:
+        print(f" {names[i]:<26}{dc[i]:>+16.2f}{du[i]:>+18.2f}")
+    print("-" * width)
+    r4 = spearman_rank([abs(dc[i]) for i in S], [abs(du[i]) for i in S]) if enough else None
+    print(f" Spearman(|Delta u_i|, |Delta c_i|) over the {len(S)} members: {fmt(r4) if enough else why}")
     print("=" * width)
 
 
@@ -2011,11 +2492,16 @@ def run_game(case, index, configure):
             except Exception as exc:
                 print(f"[WARNING] Multipliers table not printed: {type(exc).__name__}: {exc}")
             try:
+                print_centrality_trend_tables(case, S, nodes, id_to_name, out_neighbors, weight0, w_star,
+                                              u_base, u_ne, multipliers, certificate)
+            except Exception as exc:
+                print(f"[WARNING] Trend tables not printed: {type(exc).__name__}: {exc}")
+            try:
                 script_dir = os.path.dirname(os.path.abspath(__file__))
                 print("\n Creating the images...", flush=True)
                 saved_files = make_outputs(plot_data, script_dir)
                 print("\n" + "#" * 100)
-                print(" IMAGES CREATED (flows, utilities, export shares):", flush=True)
+                print(" IMAGES CREATED (flows, utilities, export shares, reallocation vs centrality, multipliers):", flush=True)
                 for saved in saved_files:
                     print(f"   {saved}")
                 print("#" * 100)

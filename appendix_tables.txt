@@ -1,0 +1,277 @@
+Implementing Target Eigenvector Centralities through Noncooperative Network Games:
+Theory and an Application to the BACI Trade Network
+(M. Passacantando, F. Raciti, G. Rizzo)
+ 
+SUPPLEMENTARY TABLES
+====================
+ 
+This file reproduces, in plain text, the tables reported in the Appendix of the paper for the four
+experiments carried out on the BACI trade network (sector 870323, HS92): Experiment 1 (target equal to
+the baseline), Experiment 2 (random target), Experiment 3.1 (top-5 EU exporters, -10%) and Experiment 3.2
+(Italy, +10%). For each experiment the tables report the parameters and aggregate results, the percentage
+variation of the target centrality of the members of the coalition (Experiments 2, 3.1 and 3.2 only),
+the arcs whose flow varies by more than 100% between baseline and equilibrium, the share of the export
+reallocated by each member, and a summary of the multipliers. The complete run outputs are available in
+the same repository.
+ 
+ 
+====================================================================================================
+EXPERIMENT 1
+====================================================================================================
+ 
+In this experiment the coalition is asked to preserve the baseline centrality: c^des:=c^0=c^target.
+ 
+ 
+Experiment 1: parameters and aggregate results.
+  l_ij = 20% w^0_ij
+  theta=theta_0 = 4.159e6
+  P^S(w^NE) = 3.225e15
+  Price of anarchy = 1.0010
+ 
+ 
+Experiment 1: arcs whose flow varies by more than 100% between baseline and equilibrium, in decreasing order.
+  Arc (exporter -> importer) | Delta w_ij (%)
+  Austria -> Rep. of Korea   | +213.6%
+  Sweden -> Japan            | +105.9%
+  France -> Mexico           | +104.0%
+ 
+ 
+Experiment 1: percentage of the total export of each member of S reallocated between baseline and equilibrium, in decreasing order. Other: the 17 members below 5%.
+  Country     | Reallocated (%)
+  Finland     | 18.4%
+  Italy       | 13.8%
+  Netherlands | 11.2%
+  Austria     | 11.1%
+  France      | 8.3%
+  Hungary     | 7.5%
+  Slovakia    | 5.0%
+  Other       | <5%
+ 
+ 
+Experiment 1: summary of the multipliers. C=constraints; A/NA=active/not active; NU=not unique (Proposition 3); Min/Max=minimum/maximum, with ISO3 reference.
+  Multiplier          | C   | A  | NA  | NU | Min                 | Max
+  mu_i (budget)       | 24  | 20 | 0   | 4  | -4.67e7 (FIN)       | 5.86e7 (LUX)
+  pi_i (centrality)   | 24  | 20 | 0   | 4  | -2.95e8 (ITA)       | 2.43e10 (EST)
+  nu_ij (lower bound) | 371 | 2  | 365 | 4  | 3.79e7 (ESP -> USA) | 4.02e7 (NLD -> USA)
+ 
+ 
+====================================================================================================
+EXPERIMENT 2
+====================================================================================================
+ 
+The desired centrality c^des is obtained by perturbing at random the centrality of every country of the SCC, with relative radius delta=0.5 and seed 20260101. Since c^des is not implementable by S, the MIQP is solved and c^target=c^*.
+ 
+ 
+Experiment 2: parameters and aggregate results.
+  l_ij = 20% w^0_ij
+  theta = 3.158e7
+  ||c^0-c^des||_2^2 = 6.961e-3
+  ||c^target-c^des||_2^2 = 6.843e-3
+  P^S(w^NE) = 3.635e16
+  Price of anarchy = 1.0001
+ 
+ 
+Experiment 2: percentage variation of the target centrality c^target_i with respect to the baseline c^0_i, in decreasing order of absolute value. Other: the 4 members below 5%.
+  Country     | Delta c_i (%)
+  Slovenia    | -79.8%
+  Luxembourg  | -77.9%
+  Latvia      | -72.5%
+  Lithuania   | -72.5%
+  Romania     | -70.3%
+  Finland     | -64.7%
+  Poland      | -64.3%
+  Netherlands | -64.0%
+  Estonia     | -55.6%
+  Italy       | +46.5%
+  Portugal    | -41.6%
+  Sweden      | -38.0%
+  France      | +25.3%
+  Denmark     | -17.7%
+  Austria     | +16.4%
+  Spain       | +16.1%
+  Belgium     | +15.7%
+  Hungary     | +8.4%
+  Czechia     | +6.1%
+  Slovakia    | -5.4%
+  Other       | |Delta c_i|<5%
+ 
+ 
+Experiment 2: arcs whose flow varies by more than 100% between baseline and equilibrium, in decreasing order.
+  Arc (exporter -> importer)    | Delta w_ij (%)
+  Luxembourg -> Netherlands     | +630.0%
+  Netherlands -> Switzerland    | +571.1%
+  Finland -> China              | +563.2%
+  Romania -> Poland             | +537.5%
+  Slovenia -> Hong Kong SAR     | +461.1%
+  Sweden -> France              | +384.4%
+  Finland -> United Kingdom     | +305.0%
+  Sweden -> Belgium             | +290.2%
+  Poland -> Netherlands         | +270.4%
+  Finland -> Sweden             | +234.9%
+  Finland -> Lithuania          | +202.4%
+  Finland -> Estonia            | +195.4%
+  Finland -> Latvia             | +191.4%
+  Netherlands -> France         | +176.3%
+  Netherlands -> United Kingdom | +170.7%
+  Sweden -> Denmark             | +162.3%
+  Romania -> United Kingdom     | +152.2%
+  Netherlands -> Italy          | +151.3%
+  Italy -> Mexico               | +134.2%
+  Poland -> Ukraine             | +115.8%
+  Sweden -> Netherlands         | +114.1%
+  Italy -> Germany              | +110.9%
+  Sweden -> India               | +110.4%
+  Sweden -> Slovenia            | +107.9%
+  Poland -> Italy               | +105.3%
+ 
+ 
+Experiment 2: percentage of the total export of each member of S reallocated between baseline and equilibrium, in decreasing order. Other: the 6 members below 5%.
+  Country     | Reallocated (%)
+  Luxembourg  | 71.0%
+  Finland     | 53.6%
+  Slovenia    | 47.7%
+  Netherlands | 44.5%
+  Estonia     | 34.8%
+  Lithuania   | 31.2%
+  Romania     | 29.0%
+  Italy       | 27.1%
+  Poland      | 27.1%
+  Sweden      | 24.8%
+  Portugal    | 20.0%
+  Austria     | 13.7%
+  Denmark     | 12.7%
+  Spain       | 10.0%
+  France      | 9.6%
+  Belgium     | 9.2%
+  Hungary     | 6.9%
+  Slovakia    | 5.5%
+  Other       | <5%
+ 
+ 
+Experiment 2: summary of the multipliers. C=constraints; A/NA=active/not active; NU=not unique (Proposition 3); Min/Max=minimum/maximum, with ISO3 reference.
+  Multiplier          | C   | A  | NA  | NU | Min                 | Max
+  mu_i (budget)       | 24  | 18 | 0   | 6  | -1.65e8 (FIN)       | 6.78e8 (ITA)
+  pi_i (centrality)   | 24  | 18 | 0   | 6  | -2.38e9 (ITA)       | 3.11e11 (SVN)
+  nu_ij (lower bound) | 371 | 43 | 318 | 10 | 1.01e7 (DEU -> MYS) | 5.19e10 (SVN -> DEU)
+ 
+ 
+====================================================================================================
+EXPERIMENT 3.1
+====================================================================================================
+ 
+The perturbed countries are the five largest exporters of S (Germany, Slovakia, Sweden, Belgium and Czechia), whose desired centrality is decreased by 10% (mu=0.9), while that of the other countries is rescaled by the factor lambda. Since c^des is not implementable by S, the MIQP is solved and c^target=c^*.
+ 
+ 
+Experiment 3.1: parameters and aggregate results.
+  l_ij = 20% w^0_ij
+  theta = 1.403e7
+  mu = 0.9
+  ||c^0-c^des||_2^2 = 4.136e-4
+  ||c^target-c^des||_2^2 = 3.758e-4
+  P^S(w^NE) = 1.515e16
+  Price of anarchy = 1.0002
+ 
+ 
+Experiment 3.1: percentage variation of the target centrality c^target_i with respect to the baseline c^0_i, in decreasing order of absolute value. Other: the 11 members below 5%.
+  Country     | Delta c_i (%)
+  Poland      | +111.9%
+  Estonia     | -95.4%
+  Latvia      | -77.5%
+  Lithuania   | -77.5%
+  Netherlands | +69.6%
+  Luxembourg  | -68.4%
+  France      | +16.4%
+  Italy       | +13.5%
+  Austria     | +13.3%
+  Sweden      | -10.1%
+  Slovakia    | -9.7%
+  Spain       | +9.5%
+  Czechia     | -8.5%
+  Other       | |Delta c_i|<5%
+ 
+ 
+Experiment 3.1: arcs whose flow varies by more than 100% between baseline and equilibrium, in decreasing order.
+  Arc (exporter -> importer) | Delta w_ij (%)
+  Austria -> Rep. of Korea   | +208.2%
+  France -> Mexico           | +140.2%
+  Luxembourg -> France       | +135.8%
+  Netherlands -> Germany     | +125.1%
+  Poland -> Germany          | +114.5%
+  Lithuania -> Latvia        | +113.1%
+  Luxembourg -> Netherlands  | +110.4%
+  Estonia -> Latvia          | +104.2%
+  France -> Germany          | +100.5%
+ 
+ 
+Experiment 3.1: percentage of the total export of each member of S reallocated between baseline and equilibrium, in decreasing order. Other: the 11 members below 5%.
+  Country     | Reallocated (%)
+  Poland      | 47.1%
+  Luxembourg  | 45.9%
+  Estonia     | 45.2%
+  Netherlands | 43.5%
+  Lithuania   | 33.3%
+  Finland     | 12.2%
+  Austria     | 10.5%
+  Italy       | 9.2%
+  France      | 7.1%
+  Slovakia    | 7.0%
+  Spain       | 6.9%
+  Sweden      | 6.5%
+  Hungary     | 5.7%
+  Other       | <5%
+ 
+ 
+Experiment 3.1: summary of the multipliers. C=constraints; A/NA=active/not active; NU=not unique (Proposition 3); Min/Max=minimum/maximum, with ISO3 reference.
+  Multiplier          | C   | A  | NA  | NU | Min                 | Max
+  mu_i (budget)       | 24  | 18 | 0   | 6  | -7.27e7 (LUX)       | 2.93e8 (NLD)
+  pi_i (centrality)   | 24  | 18 | 0   | 6  | -1.02e9 (NLD)       | 3.24e10 (LUX)
+  nu_ij (lower bound) | 371 | 13 | 345 | 13 | 6.55e6 (ESP -> USA) | 4.90e9 (LUX -> DEU)
+ 
+ 
+====================================================================================================
+EXPERIMENT 3.2
+====================================================================================================
+ 
+The only perturbed country is Italy, whose desired centrality is increased by 10% (mu=1.1), while that of the other countries is rescaled by the factor lambda. Since c^des is not implementable by S, the MIQP is solved and c^target=c^*.
+ 
+ 
+Experiment 3.2: parameters and aggregate results.
+  l_ij = 20% w^0_ij
+  theta = 9.357e6
+  mu = 1.1
+  ||c^0-c^des||_2^2 = 9.849e-7
+  ||c^target-c^des||_2^2 = 2.578e-9
+  P^S(w^NE) = 9.526e15
+  Price of anarchy = 1.0003
+ 
+ 
+Experiment 3.2: percentage variation of the target centrality c^target_i with respect to the baseline c^0_i, in decreasing order of absolute value. Other: the 22 members below 5%.
+  Country | Delta c_i (%)
+  Estonia | +59.0%
+  Italy   | +10.0%
+  Other   | |Delta c_i|<5%
+ 
+ 
+Experiment 3.2: arcs whose flow varies by more than 100% between baseline and equilibrium, in decreasing order.
+  Arc (exporter -> importer) | Delta w_ij (%)
+  Austria -> Rep. of Korea   | +157.8%
+ 
+ 
+Experiment 3.2: percentage of the total export of each member of S reallocated between baseline and equilibrium, in decreasing order. Other: the 17 members below 5%.
+  Country     | Reallocated (%)
+  Estonia     | 34.8%
+  Finland     | 14.3%
+  Netherlands | 11.1%
+  Italy       | 10.0%
+  Austria     | 9.3%
+  France      | 6.6%
+  Hungary     | 6.1%
+  Other       | <5%
+ 
+ 
+Experiment 3.2: summary of the multipliers. C=constraints; A/NA=active/not active; NU=not unique (Proposition 3); Min/Max=minimum/maximum, with ISO3 reference.
+  Multiplier          | C   | A  | NA  | NU | Min                 | Max
+  mu_i (budget)       | 24  | 19 | 0   | 5  | 5.02e7 (FIN)        | 1.49e8 (ITA)
+  pi_i (centrality)   | 24  | 19 | 0   | 5  | -6.12e8 (ITA)       | 4.74e8 (FIN)
+  nu_ij (lower bound) | 371 | 1  | 364 | 6  | 2.18e7 (ESP -> USA) | 2.18e7 (ESP -> USA)
+ 
