@@ -5,15 +5,18 @@ Theory and an Application to the BACI Trade Network
 RUN OUTPUT - EXPERIMENT 3.1
 ===========================
 
-This file contains the complete, unedited console output of the run of Experiment 3.1 (top-5 EU exporters, desired centrality decreased by 10%) on the BACI
-trade network (sector 870323, HS92), produced by the Python code BACI-Nash_exp_plot.py available in this
-repository. The output reports, in this order: the data and parameters of the run, the checks on the target
-centrality and on the solution of the game, the equilibrium flows and the utilities of the members of the
-coalition, the multipliers (mu_i of the budget constraint, pi_i of the centrality constraint and nu_ij of the
-arcs at the lower bound) together with their summary table, four trend tables (rank correlations between the
-required change of centrality and flows, reallocated export, multipliers and utilities), and the list of the
-images created. The tables of the paper are derived from this output; the tables of its Appendix are also
-reproduced in the file appendix_tables.txt. Local file paths have been removed.
+This file contains the console output of the run of Experiment 3.1 (Experiment 3, case 1: the five largest
+EU exporters, desired centrality decreased by 10%) on the BACI trade network (sector 870323, HS92), produced
+by the Python code BACI-Nash_exp_plot.py available in this repository. The output reports, in this order:
+the data and parameters of the run, the checks on the target centrality and on the solution of the game, the
+equilibrium flows and the utilities of the members of the coalition, the multipliers (mu_i of the budget
+constraint, pi_i of the centrality constraint and nu_ij of the arcs at the lower bound) together with their
+summary table, four trend tables (rank correlations between the required change of centrality and flows,
+reallocated export, multipliers and utilities), and the list of the images created. The tables of the paper
+are derived from this output; the tables of its Appendix are also reproduced in the file
+appendix_tables.txt. Local file paths have been removed. The blocks identical in the four experiments
+(sector data, baseline centrality, coalition, calibration of theta* and check on k, list of the combined
+figures) are not repeated here and are reported once in appendix_tables.txt.
 
 ----------------------------------------------------------------------------------------------------
 
@@ -26,97 +29,6 @@ EXPERIMENT 3, CASE 1 selected.
 ########################################################################################################################
 SECTOR 870323 | PRUNING 10%
 ########################################################################################################################
-
-ANALYSIS FOR SECTOR: Vehicles: spark-ignition internal combustion reciprocating piston engine, cylinder capacity exceeding 1500cc but not exceeding 3000cc
- Baseline year: 2024 | Years used for sigma_ij: 2018-2024 (7 years)
- PRUNING (a = 10% of the mean baseline flow):
-   Mean baseline flow: 42,905.531 (4.291e+04)
-   Threshold a = 10% x mean flow = 4,290.553 (4.291e+03); arcs with flow below a are removed
-   Arcs kept: 1244/5728 = 21.7%
-   Flow kept: 2.436e+08/2.458e+08 = 99.1%
- Countries in SCC: 50 | Flows: 648
- SCC density: 0.26
- rho^0 = 13766972.4633
-
- BASELINE CENTRALITY c0: DYNAMIC RANGE
-   quantiles (0, 1%, 5%, 25%, 50%, 75%, 95%, 100%): 7.33e-12, 1.19e-11, 1.13e-08, 4.11e-05, 1.30e-03, 1.60e-02, 1.16e-01, 1.94e-01
-   nodes with c0 < 1e-6: 7 of 50 | nodes with c0 < 1e-9: 2
-   smallest centralities: Armenia (7.3e-12), Kazakhstan (1.7e-11)
-
- BASELINE CENTRALITY c0 (all countries of the SCC; * = member of the coalition)
- Country                                           c0
- Azerbaijan                              7.243712e-05
- *Austria                                6.728138e-03
- Armenia                                 7.327667e-12
- *Belgium                                1.421892e-02
- Brazil                                  1.502818e-03
- *Bulgaria                               1.197434e-04
- Canada                                  8.608719e-02
- China                                   3.082897e-02
- Colombia                                3.949623e-04
- *Croatia                                1.520094e-04
- *Czechia                                1.290998e-02
- *Denmark                                3.502454e-03
- *Estonia                                1.433549e-06
- *Finland                                3.228265e-03
- *France                                 5.314597e-03
- Georgia                                 3.244085e-07
- *Germany                                1.681935e-01
- China, Hong Kong SAR                    3.070720e-05
- *Hungary                                1.662424e-02
- Indonesia                               4.561730e-06
- *Ireland                                9.758269e-06
- *Italy                                  9.399946e-03
- Japan                                   1.396962e-01
- Kazakhstan                              1.674350e-11
- Rep. of Korea                           8.165579e-02
- Lebanon                                 3.153897e-07
- *Latvia                                 3.528624e-07
- *Lithuania                              1.328041e-04
- *Luxembourg                             1.678064e-04
- Malaysia                                8.692267e-06
- Mexico                                  1.944618e-01
- Morocco                                 5.637202e-04
- *Netherlands                            2.422334e-03
- *Poland                                 1.040039e-03
- *Portugal                               1.764731e-03
- *Romania                                1.103405e-03
- Russian Federation                      2.305705e-08
- India                                   2.202634e-03
- Singapore                               1.744998e-09
- *Slovakia                               4.574841e-02
- *Slovenia                               5.906756e-04
- South Africa                            1.801764e-02
- *Spain                                  1.931124e-02
- *Sweden                                 2.025764e-02
- Switzerland                             2.242089e-04
- Thailand                                2.959733e-03
- Türkiye                                 2.808451e-04
- Ukraine                                 1.713703e-05
- United Kingdom                          2.161497e-02
- USA                                     8.643192e-02
-
- TOP 5 EXPORTERS AMONG THE MEMBERS OF THE COALITION S, baseline centrality and its position among the 50 countries of the SCC (• = member of the coalition S)
- ----------------------------------------------------------------------------------------------------
- Rank  Country                                Export volume                c0  Position of c0
-    1  • Germany                               42820804.232      1.681935e-01               2
-    2  • Slovakia                               8349964.634      4.574841e-02               7
-    3  • Sweden                                 4335320.625      2.025764e-02              10
-    4  • Belgium                                3830986.336      1.421892e-02              14
-    5  • Czechia                                3302769.357      1.290998e-02              15
- ----------------------------------------------------------------------------------------------------
-
- TOP 5 HIGHEST BASELINE CENTRALITIES (SCC) (• = member of the coalition S)
- ------------------------------------------------------------
- Position  Country                                           c0
-        1    Mexico                                1.944618e-01
-        2  • Germany                               1.681935e-01
-        3    Japan                                 1.396962e-01
-        4    USA                                   8.643192e-02
-        5    Canada                                8.608719e-02
- ------------------------------------------------------------
-
- Coalition S (24 member(s), 24/27 EU members present in this SCC): Austria, Belgium, Bulgaria, Croatia, Czechia, Denmark, Estonia, Finland, France, Germany, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden
 
  EXPERIMENT 3 - c^des: mu = 0.9 on the perturbed countries, lambda = 1.035378164 on the other 45 countries (lambda = (1 - sum_P mu c0)/(1 - sum_P c0))
 
@@ -185,280 +97,271 @@ SECTOR 870323 | PRUNING 10%
        2    9.356631e+06         -1.485647e+13                     1
        3    1.403495e+07          3.850982e+11                     0
 
- THETA: theta = 1.403495e+07 (theta / theta_0 = 3.3750)
-
- CHECK k: k = 3.792664e+07 = 1.5 x bound | bound = max_(i,j) (sigma_ij + eps)(d_S(j) - 1) = 2.528443e+07 | k > bound: True
-   eps = 1 | beta_ij = k/(sigma_ij + eps) in [1.5000e+01, 3.9117e+04]
-   min over arcs of beta_ij / (gamma_j (d_S(j)-1)) = 1.5000 (Prop. 2 needs > 0.5; concavity of W needs > 1)
-   arcs violating Prop. 2: 0/367 | arcs violating beta_ij > gamma_j (d_S(j)-1): 0/367
-
- condition (Prop. 2) satisfied: True | gamma_j = 1 | ell_ij = 20.00% * w0_ij
-
- GUROBI DIAGNOSTICS - coalition potential game (QP): status = 2 | runtime = 0.007s | barrier iterations = 17
-   residuals (relative to the largest budget): budget = 7.83e-15 | centrality = 2.59e-15 | lower bound = 0.00e+00
+ GUROBI DIAGNOSTICS - coalition potential game (QP): status = 2 | runtime = 0.008s | barrier iterations = 18
+   residuals (relative to the largest budget): budget = 2.92e-14 | centrality = 1.12e-15 | lower bound = 0.00e+00
 
 ===========================================================================================================================
 RISULTATI DEL GIOCO DI COALIZIONE
 ===========================================================================================================================
  |S| = 24 member(s); uniqueness (Prop. 2): YES
- P^S(w_S^NE; c) = 15151153300186530.000000
- P^S(w_S^0)     = 15221548316748768.000000 (baseline) | variation baseline -> NE = -0.4625%
+ P^S(w_S^NE; c) = 36697233336970304.000000
+ P^S(w_S^0)     = 36694679360495248.000000 (baseline) | variation baseline -> NE = +0.0070%
 
 ===========================================================================================================================
 FLUSSI DEI MEMBRI DELLA COALIZIONE
 ===========================================================================================================================
  Paese i                          Paese j                             w_ij^0 (baseline)     w_ij^NE (ottimo)    Delta_i (%)
- *Austria                         *Belgium                                   277223.404           238665.246        -13.91%
- *Austria                         Canada                                      10199.680            15858.161        +55.48%
- *Austria                         China                                       70396.146            71805.732         +2.00%
- *Austria                         *Czechia                                    11694.218             9864.255        -15.65%
- *Austria                         *France                                      9866.983             6465.951        -34.47%
- *Austria                         *Germany                                   332888.436           380429.348        +14.28%
- *Austria                         *Hungary                                    36466.388            19422.569        -46.74%
- *Austria                         *Italy                                      15656.635             8108.952        -48.21%
- *Austria                         Japan                                       48790.749            85554.169        +75.35%
- *Austria                         Rep. of Korea                               18645.999            57469.729       +208.21%
- *Austria                         *Netherlands                                19137.316            17445.120         -8.84%
- *Austria                         *Poland                                      5310.200             3599.970        -32.21%
- *Austria                         *Romania                                    72629.723            61765.519        -14.96%
- *Austria                         India                                        5188.602             3916.128        -24.52%
- *Austria                         *Slovakia                                   12032.640            10462.116        -13.05%
- *Austria                         Switzerland                                 24880.753            22129.047        -11.06%
- *Austria                         United Kingdom                              50390.988            46007.584         -8.70%
- *Austria                         USA                                        214762.729           177191.995        -17.49%
- *Belgium                         *Austria                                    25899.821            24676.305         -4.72%
- *Belgium                         Canada                                      75259.850            78954.683         +4.91%
- *Belgium                         China                                        8262.615            10017.401        +21.24%
- *Belgium                         *Czechia                                    10814.400             5918.579        -45.27%
- *Belgium                         *Denmark                                    33285.960            29042.838        -12.75%
- *Belgium                         *Finland                                     7476.088             1502.560        -79.90%
- *Belgium                         *France                                    112249.263           108930.878         -2.96%
- *Belgium                         *Germany                                   443332.164           481685.928         +8.65%
- *Belgium                         *Hungary                                    35335.856            31988.348         -9.47%
- *Belgium                         *Ireland                                    43841.170            40296.881         -8.08%
- *Belgium                         *Italy                                      79348.453            77720.159         -2.05%
- *Belgium                         Japan                                       28383.306            35559.048        +25.28%
- *Belgium                         Rep. of Korea                                6258.879             7653.874        +22.29%
- *Belgium                         *Lithuania                                   6933.896             4947.780        -28.64%
- *Belgium                         *Luxembourg                                161356.216           153625.267         -4.79%
- *Belgium                         *Netherlands                               536101.329           532361.739         -0.70%
- *Belgium                         *Poland                                     69111.473            69040.728         -0.10%
- *Belgium                         *Portugal                                  125831.210           119170.767         -5.29%
- *Belgium                         *Romania                                    33322.468            31810.469         -4.54%
- *Belgium                         *Slovakia                                   10962.410            10424.695         -4.91%
- *Belgium                         *Slovenia                                    8650.421             7075.656        -18.20%
- *Belgium                         *Spain                                      54315.075            53450.541         -1.59%
- *Belgium                         *Sweden                                    264955.281           228347.993        -13.82%
- *Belgium                         Switzerland                                  7878.345             6026.574        -23.50%
- *Belgium                         Türkiye                                      5536.702             5486.191         -0.91%
- *Belgium                         United Kingdom                             654448.095           758849.220        +15.95%
- *Belgium                         USA                                        981835.590           916421.235         -6.66%
+ *Austria                         *Belgium                                   277223.404           212547.011        -23.33%
+ *Austria                         Canada                                      10199.680            16189.622        +58.73%
+ *Austria                         China                                       70396.146           111866.124        +58.91%
+ *Austria                         *Czechia                                    11694.218             8090.208        -30.82%
+ *Austria                         *France                                      9866.983             4588.379        -53.50%
+ *Austria                         *Germany                                   332888.436           367704.640        +10.46%
+ *Austria                         *Hungary                                    36466.388             7294.327        -80.00%
+ *Austria                         *Italy                                      15656.635             3534.506        -77.42%
+ *Austria                         Japan                                       48790.749            58707.888        +20.33%
+ *Austria                         Rep. of Korea                               18645.999            21953.987        +17.74%
+ *Austria                         *Netherlands                                19137.316            16420.995        -14.19%
+ *Austria                         *Poland                                      5310.200             2912.455        -45.15%
+ *Austria                         *Romania                                    72629.723            53076.327        -26.92%
+ *Austria                         India                                        5188.602             2717.725        -47.62%
+ *Austria                         *Slovakia                                   12032.640             7435.495        -38.21%
+ *Austria                         Switzerland                                 24880.753            20677.389        -16.89%
+ *Austria                         United Kingdom                              50390.988            47117.840         -6.50%
+ *Austria                         USA                                        214762.729           273326.671        +27.27%
+ *Belgium                         *Austria                                    25899.821            22720.694        -12.27%
+ *Belgium                         Canada                                      75259.850            81724.651         +8.59%
+ *Belgium                         China                                        8262.615            15365.652        +85.97%
+ *Belgium                         *Czechia                                    10814.400             2165.251        -79.98%
+ *Belgium                         *Denmark                                    33285.960            22835.562        -31.40%
+ *Belgium                         *Finland                                     7476.088             1495.260        -80.00%
+ *Belgium                         *France                                    112249.263            99723.107        -11.16%
+ *Belgium                         *Germany                                   443332.164           458970.264         +3.53%
+ *Belgium                         *Hungary                                    35335.856            26726.535        -24.36%
+ *Belgium                         *Ireland                                    43841.170            35260.212        -19.57%
+ *Belgium                         *Italy                                      79348.453            73406.090         -7.49%
+ *Belgium                         Japan                                       28383.306             5742.927        -79.77%
+ *Belgium                         Rep. of Korea                                6258.879             4845.905        -22.58%
+ *Belgium                         *Lithuania                                   6933.896             2203.356        -68.22%
+ *Belgium                         *Luxembourg                                161356.216           142813.385        -11.49%
+ *Belgium                         *Netherlands                               536101.329           524851.227         -2.10%
+ *Belgium                         *Poland                                     69111.473            68743.502         -0.53%
+ *Belgium                         *Portugal                                  125831.210           109264.151        -13.17%
+ *Belgium                         *Romania                                    33322.468            29644.863        -11.04%
+ *Belgium                         *Slovakia                                   10962.410             9437.800        -13.91%
+ *Belgium                         *Slovenia                                    8650.421             4912.468        -43.21%
+ *Belgium                         *Spain                                      54315.075            50744.398         -6.57%
+ *Belgium                         *Sweden                                    264955.281           164260.986        -38.00%
+ *Belgium                         Switzerland                                  7878.345             3193.308        -59.47%
+ *Belgium                         Türkiye                                      5536.702             5401.179         -2.45%
+ *Belgium                         United Kingdom                             654448.095           866267.800        +32.37%
+ *Belgium                         USA                                        981835.590           998265.803         +1.67%
  *Bulgaria                        *Germany                                     9801.239             9801.239         +0.00%
  *Croatia                         *Germany                                    12442.271            12442.271         +0.00%
- *Czechia                         Azerbaijan                                   5380.500             4760.166        -11.53%
- *Czechia                         *Austria                                    50562.206            50251.319         -0.61%
- *Czechia                         *Belgium                                    28092.689            40718.821        +44.94%
- *Czechia                         *Bulgaria                                   45684.286            42693.502         -6.55%
- *Czechia                         Colombia                                    18957.316            19111.948         +0.82%
- *Czechia                         *Croatia                                    21627.458            15271.785        -29.39%
- *Czechia                         *Denmark                                    60405.038            58270.330         -3.53%
- *Czechia                         *Estonia                                    28229.801            26282.143         -6.90%
- *Czechia                         *Finland                                    35367.573            32990.379         -6.72%
- *Czechia                         *France                                    516418.864           542639.477         +5.08%
- *Czechia                         Georgia                                      4861.149             5074.835         +4.40%
- *Czechia                         *Germany                                   826893.737           763761.970         -7.63%
- *Czechia                         *Hungary                                    18150.045            14228.093        -21.61%
- *Czechia                         *Italy                                     144663.245           154725.435         +6.96%
- *Czechia                         *Lithuania                                  12272.673            11768.216         -4.11%
- *Czechia                         *Luxembourg                                 21649.045            20800.551         -3.92%
- *Czechia                         Mexico                                      90259.196            60768.397        -32.67%
- *Czechia                         *Netherlands                                17723.564            22634.653        +27.71%
- *Czechia                         *Poland                                    320044.425           331295.811         +3.52%
- *Czechia                         *Romania                                    39254.610            38579.729         -1.72%
- *Czechia                         *Slovakia                                  101536.610            92407.271         -8.99%
- *Czechia                         *Slovenia                                   36919.660            34818.893         -5.69%
- *Czechia                         *Spain                                      52941.961            66349.957        +25.33%
- *Czechia                         *Sweden                                      5881.025             3239.270        -44.92%
- *Czechia                         Switzerland                                187415.337           194309.488         +3.68%
- *Czechia                         Türkiye                                    130935.674           139711.989         +6.70%
- *Czechia                         Ukraine                                     50355.796            50604.362         +0.49%
- *Czechia                         United Kingdom                             430285.874           464700.567         +8.00%
- *Denmark                         *Austria                                     5986.125             4781.367        -20.13%
- *Denmark                         *Belgium                                    12781.790            12695.241         -0.68%
- *Denmark                         *France                                      8368.473             8044.780         -3.87%
- *Denmark                         *Germany                                   283383.221           287213.016         +1.35%
- *Denmark                         *Netherlands                                80135.071            78471.279         -2.08%
- *Denmark                         *Spain                                       4695.121             4577.147         -2.51%
- *Denmark                         Switzerland                                 16500.841            16067.810         -2.62%
+ *Czechia                         Azerbaijan                                   5380.500             3371.799        -37.33%
+ *Czechia                         *Austria                                    50562.206            47585.980         -5.89%
+ *Czechia                         *Belgium                                    28092.689            49288.831        +75.45%
+ *Czechia                         *Bulgaria                                   45684.286            36207.482        -20.74%
+ *Czechia                         Colombia                                    18957.316            18004.575         -5.03%
+ *Czechia                         *Croatia                                    21627.458             4624.487        -78.62%
+ *Czechia                         *Denmark                                    60405.038            51070.157        -15.45%
+ *Czechia                         *Estonia                                    28229.801            22536.502        -20.17%
+ *Czechia                         *Finland                                    35367.573            28792.385        -18.59%
+ *Czechia                         *France                                    516418.864           554482.683         +7.37%
+ *Czechia                         Georgia                                      4861.149             5013.883         +3.14%
+ *Czechia                         *Germany                                   826893.737           778069.669         -5.90%
+ *Czechia                         *Hungary                                    18150.045             6952.233        -61.70%
+ *Czechia                         *Italy                                     144663.245           157315.980         +8.75%
+ *Czechia                         *Lithuania                                  12272.673            10060.762        -18.02%
+ *Czechia                         *Luxembourg                                 21649.045            18611.137        -14.03%
+ *Czechia                         Mexico                                      90259.196            47294.083        -47.60%
+ *Czechia                         *Netherlands                                17723.564            23378.392        +31.91%
+ *Czechia                         *Poland                                    320044.425           338042.133         +5.62%
+ *Czechia                         *Romania                                    39254.610            35807.552         -8.78%
+ *Czechia                         *Slovakia                                  101536.610            78621.062        -22.57%
+ *Czechia                         *Slovenia                                   36919.660            30531.412        -17.30%
+ *Czechia                         *Spain                                      52941.961            61761.295        +16.66%
+ *Czechia                         *Sweden                                      5881.025             1178.640        -79.96%
+ *Czechia                         Switzerland                                187415.337           195833.620         +4.49%
+ *Czechia                         Türkiye                                    130935.674           143884.640         +9.89%
+ *Czechia                         Ukraine                                     50355.796            49335.685         -2.03%
+ *Czechia                         United Kingdom                             430285.874           505112.296        +17.39%
+ *Denmark                         *Austria                                     5986.125             3770.252        -37.02%
+ *Denmark                         *Belgium                                    12781.790            13257.609         +3.72%
+ *Denmark                         *France                                      8368.473             8414.245         +0.55%
+ *Denmark                         *Germany                                   283383.221           287201.617         +1.35%
+ *Denmark                         *Netherlands                                80135.071            78530.003         -2.00%
+ *Denmark                         *Spain                                       4695.121             4525.668         -3.61%
+ *Denmark                         Switzerland                                 16500.841            16151.250         -2.12%
  *Estonia                         *Latvia                                    113907.717           232551.255       +104.16%
  *Estonia                         *Lithuania                                 148304.423            29660.885        -80.00%
- *Finland                         China                                        7865.975            13775.368        +75.13%
- *Finland                         *Estonia                                     8991.907             9890.014         +9.99%
- *Finland                         *Germany                                   194991.917           221921.799        +13.81%
- *Finland                         Japan                                       16965.307            17655.827         +4.07%
- *Finland                         *Latvia                                     18254.670            20091.007        +10.06%
- *Finland                         *Lithuania                                  20379.601            23287.364        +14.27%
- *Finland                         *Sweden                                      4985.508             5871.352        +17.77%
- *Finland                         United Kingdom                              19537.388            27078.247        +38.60%
- *Finland                         USA                                         98442.332            50843.627        -48.35%
- *France                          *Austria                                    33162.510            31624.951         -4.64%
- *France                          *Belgium                                   136738.156           140781.889         +2.96%
- *France                          Canada                                      30895.872            34924.362        +13.04%
- *France                          China                                       19132.534            20336.828         +6.29%
- *France                          Colombia                                     8058.199             7495.382         -6.98%
- *France                          *Croatia                                     6623.062             5854.828        -11.60%
- *France                          *Czechia                                     6489.154             5149.478        -20.64%
- *France                          *Denmark                                    11594.291            10513.567         -9.32%
- *France                          *Germany                                    78811.259           158038.378       +100.53%
- *France                          *Ireland                                    55602.603            49875.127        -10.30%
- *France                          *Italy                                      60967.689            59593.842         -2.25%
- *France                          Japan                                       19989.633            26139.771        +30.77%
- *France                          Rep. of Korea                                7905.407             8532.704         +7.94%
- *France                          *Lithuania                                  20042.071            16151.383        -19.41%
- *France                          *Luxembourg                                 10086.566             7294.726        -27.68%
- *France                          Mexico                                       7735.211            18578.950       +140.19%
- *France                          *Netherlands                                90011.482            85922.443         -4.54%
- *France                          *Poland                                     26727.486            26543.423         -0.69%
- *France                          *Portugal                                  240206.223           223302.981         -7.04%
- *France                          *Romania                                    10331.668             9659.055         -6.51%
- *France                          *Slovakia                                    4293.431             1535.314        -64.24%
- *France                          *Slovenia                                   12071.360            11112.871         -7.94%
- *France                          *Spain                                     107193.546           105647.239         -1.44%
- *France                          *Sweden                                     10420.574             2327.943        -77.66%
- *France                          Switzerland                                 34208.381            32178.675         -5.93%
- *France                          Ukraine                                      9079.763             8323.757         -8.33%
- *France                          United Kingdom                              27896.304            35938.688        +28.83%
- *France                          USA                                        521427.876           464323.757        -10.95%
- *Germany                         Azerbaijan                                  38025.284            35936.253         -5.49%
- *Germany                         *Austria                                   412251.248           401636.279         -2.57%
- *Germany                         Armenia                                     15608.077             7882.411        -49.50%
- *Germany                         *Belgium                                   720661.411           742512.350         +3.03%
- *Germany                         Brazil                                     276756.738           271350.953         -1.95%
- *Germany                         *Bulgaria                                  107582.188            99329.386         -7.67%
- *Germany                         Canada                                    1577198.793          1673509.367         +6.11%
- *Germany                         China                                     9712017.587         10232615.658         +5.36%
- *Germany                         Colombia                                    57675.991            54779.023         -5.02%
- *Germany                         *Croatia                                    60323.676            53918.753        -10.62%
- *Germany                         *Czechia                                   181914.287           176466.085         -2.99%
- *Germany                         *Denmark                                   290093.150           266345.246         -8.19%
- *Germany                         *Estonia                                    79339.235            74313.348         -6.33%
- *Germany                         *Finland                                    28757.627             7507.025        -73.90%
- *Germany                         *France                                    494899.304           510027.964         +3.06%
- *Germany                         Georgia                                    110428.423           109387.681         -0.94%
- *Germany                         China, Hong Kong SAR                        39973.900            11016.446        -72.44%
- *Germany                         *Hungary                                    99493.353            90565.054         -8.97%
- *Germany                         Indonesia                                  138310.822           122923.753        -11.12%
- *Germany                         *Ireland                                   151141.870           145843.234         -3.51%
- *Germany                         *Italy                                    1059722.847          1068384.458         +0.82%
- *Germany                         Japan                                     1445851.466          1485067.776         +2.71%
- *Germany                         Kazakhstan                                  42349.416            40971.587         -3.25%
- *Germany                         Rep. of Korea                             2024845.495          2072426.211         +2.35%
- *Germany                         Lebanon                                     47832.689            32775.057        -31.48%
- *Germany                         *Latvia                                     76972.119            67466.285        -12.35%
- *Germany                         *Lithuania                                 107763.151            99170.553         -7.97%
- *Germany                         *Luxembourg                                145609.454           140378.167         -3.59%
- *Germany                         Malaysia                                    47962.967            32142.689        -32.98%
- *Germany                         Mexico                                     572831.850           598805.709         +4.53%
- *Germany                         Morocco                                     29373.595            23445.392        -20.18%
- *Germany                         *Netherlands                               687953.729           690235.850         +0.33%
- *Germany                         *Poland                                    883588.517           896860.470         +1.50%
- *Germany                         *Portugal                                  311865.781           302749.349         -2.92%
- *Germany                         *Romania                                   255885.037           244742.562         -4.35%
- *Germany                         India                                       59843.693            53815.045        -10.07%
- *Germany                         Singapore                                   84780.071            50687.502        -40.21%
- *Germany                         *Slovakia                                   58842.713            53770.000         -8.62%
- *Germany                         *Slovenia                                  106370.729            98038.383         -7.83%
- *Germany                         South Africa                               133230.426           116013.866        -12.92%
- *Germany                         *Spain                                     550475.310           551216.491         +0.13%
- *Germany                         *Sweden                                    259522.145           212496.078        -18.12%
- *Germany                         Switzerland                                989125.090           993246.956         +0.42%
- *Germany                         Thailand                                    32884.289            24035.522        -26.91%
- *Germany                         Türkiye                                    539752.804           548815.073         +1.68%
- *Germany                         Ukraine                                    200801.598           196068.001         -2.36%
- *Germany                         United Kingdom                            2543570.769          2732913.127         +7.44%
- *Germany                         USA                                      14928743.518         14306199.800         -4.17%
- *Hungary                         *Austria                                    31427.067            26847.094        -14.57%
- *Hungary                         *Belgium                                    11718.087            13067.867        +11.52%
- *Hungary                         Brazil                                      75515.971            72511.115         -3.98%
- *Hungary                         *Bulgaria                                   21138.711            19499.076         -7.76%
- *Hungary                         Canada                                     183078.686           188637.123         +3.04%
- *Hungary                         China                                      125872.988           162750.545        +29.30%
- *Hungary                         Colombia                                     7019.242             3222.935        -54.08%
- *Hungary                         *Czechia                                    11022.424            10211.434         -7.36%
- *Hungary                         *France                                     34138.058            34924.420         +2.30%
- *Hungary                         *Germany                                   399542.243           501938.655        +25.63%
- *Hungary                         *Italy                                      73500.015            73378.218         -0.17%
- *Hungary                         Japan                                       59322.178            59085.695         -0.40%
- *Hungary                         Rep. of Korea                               17948.031            20344.353        +13.35%
- *Hungary                         *Luxembourg                                  4350.901             2406.566        -44.69%
- *Hungary                         Mexico                                      40685.456            42737.571         +5.04%
- *Hungary                         *Netherlands                                10292.856            10053.202         -2.33%
- *Hungary                         *Poland                                     72750.681            73112.905         +0.50%
- *Hungary                         *Romania                                    16300.003            14975.280         -8.13%
- *Hungary                         *Slovakia                                    9567.514             7526.054        -21.34%
- *Hungary                         *Slovenia                                    9380.761             8311.673        -11.40%
- *Hungary                         South Africa                                 7101.390             6144.832        -13.47%
- *Hungary                         *Spain                                      40978.577            40705.883         -0.67%
- *Hungary                         *Sweden                                      5447.379             5059.830         -7.11%
- *Hungary                         Switzerland                                118860.054           117983.143         -0.74%
- *Hungary                         Ukraine                                     38217.007            35277.902         -7.69%
- *Hungary                         United Kingdom                             125597.415           139670.352        +11.20%
- *Hungary                         USA                                       1371179.265          1231569.236        -10.18%
+ *Finland                         China                                        7865.975            11350.350        +44.30%
+ *Finland                         *Estonia                                     8991.907             6313.421        -29.79%
+ *Finland                         *Germany                                   194991.917           197185.626         +1.13%
+ *Finland                         Japan                                       16965.307            14759.053        -13.00%
+ *Finland                         *Latvia                                     18254.670            13089.809        -28.29%
+ *Finland                         *Lithuania                                  20379.601            16436.999        -19.35%
+ *Finland                         *Sweden                                      4985.508             3763.827        -24.50%
+ *Finland                         United Kingdom                              19537.388            21226.431         +8.65%
+ *Finland                         USA                                         98442.332           106289.089         +7.97%
+ *France                          *Austria                                    33162.510            29481.519        -11.10%
+ *France                          *Belgium                                   136738.156           141626.220         +3.57%
+ *France                          Canada                                      30895.872            36617.580        +18.52%
+ *France                          China                                       19132.534            23260.187        +21.57%
+ *France                          Colombia                                     8058.199             6857.297        -14.90%
+ *France                          *Croatia                                     6623.062             4911.423        -25.84%
+ *France                          *Czechia                                     6489.154             3092.215        -52.35%
+ *France                          *Denmark                                    11594.291             9147.933        -21.10%
+ *France                          *Germany                                    78811.259           124329.720        +57.76%
+ *France                          *Ireland                                    55602.603            43164.434        -22.37%
+ *France                          *Italy                                      60967.689            56632.832         -7.11%
+ *France                          Japan                                       19989.633            17149.677        -14.21%
+ *France                          Rep. of Korea                                7905.407             8003.772         +1.24%
+ *France                          *Lithuania                                  20042.071            11490.520        -42.67%
+ *France                          *Luxembourg                                 10086.566             3942.763        -60.91%
+ *France                          Mexico                                       7735.211             8728.668        +12.84%
+ *France                          *Netherlands                                90011.482            81564.350         -9.38%
+ *France                          *Poland                                     26727.486            27176.849         +1.68%
+ *France                          *Portugal                                  240206.223           202898.902        -15.53%
+ *France                          *Romania                                    10331.668             8851.559        -14.33%
+ *France                          *Slovakia                                    4293.431              858.767        -80.00%
+ *France                          *Slovenia                                   12071.360             9937.766        -17.67%
+ *France                          *Spain                                     107193.546            96891.877         -9.61%
+ *France                          *Sweden                                     10420.574             2084.222        -80.00%
+ *France                          Switzerland                                 34208.381            30711.958        -10.22%
+ *France                          Ukraine                                      9079.763             7481.930        -17.60%
+ *France                          United Kingdom                              27896.304            44986.187        +61.26%
+ *France                          USA                                        521427.876           565821.185         +8.51%
+ *Germany                         Azerbaijan                                  38025.284            32142.976        -15.47%
+ *Germany                         *Austria                                   412251.248           370395.135        -10.15%
+ *Germany                         Armenia                                     15608.077             3121.724        -80.00%
+ *Germany                         *Belgium                                   720661.411           720525.159         -0.02%
+ *Germany                         Brazil                                     276756.738           254249.420         -8.13%
+ *Germany                         *Bulgaria                                  107582.188            84481.557        -21.47%
+ *Germany                         Canada                                    1577198.793          1663484.982         +5.47%
+ *Germany                         China                                     9712017.587         10766164.844        +10.85%
+ *Germany                         Colombia                                    57675.991            46944.374        -18.61%
+ *Germany                         *Croatia                                    60323.676            43318.886        -28.19%
+ *Germany                         *Czechia                                   181914.287           161207.371        -11.38%
+ *Germany                         *Denmark                                   290093.150           213393.489        -26.44%
+ *Germany                         *Estonia                                    79339.235            65765.050        -17.11%
+ *Germany                         *Finland                                    28757.627             5751.581        -80.00%
+ *Germany                         *France                                    494899.304           477011.620         -3.61%
+ *Germany                         Georgia                                    110428.423           103384.917         -6.38%
+ *Germany                         China, Hong Kong SAR                        39973.900             7994.859        -80.00%
+ *Germany                         *Hungary                                    99493.353            71607.997        -28.03%
+ *Germany                         Indonesia                                  138310.822            93675.141        -32.27%
+ *Germany                         *Ireland                                   151141.870           134154.960        -11.24%
+ *Germany                         *Italy                                    1059722.847          1030523.477         -2.76%
+ *Germany                         Japan                                     1445851.466          1098153.012        -24.05%
+ *Germany                         Kazakhstan                                  42349.416            33882.905        -19.99%
+ *Germany                         Rep. of Korea                             2024845.495          1939062.725         -4.24%
+ *Germany                         Lebanon                                     47832.689             9720.356        -79.68%
+ *Germany                         *Latvia                                     76972.119            51216.311        -33.46%
+ *Germany                         *Lithuania                                 107763.151            81393.969        -24.47%
+ *Germany                         *Luxembourg                                145609.454           130336.177        -10.49%
+ *Germany                         Malaysia                                    47962.967             9593.312        -80.00%
+ *Germany                         Mexico                                     572831.850           465907.620        -18.67%
+ *Germany                         Morocco                                     29373.595            14543.888        -50.49%
+ *Germany                         *Netherlands                               687953.729           661423.709         -3.86%
+ *Germany                         *Poland                                    883588.517           887465.622         +0.44%
+ *Germany                         *Portugal                                  311865.781           278536.167        -10.69%
+ *Germany                         *Romania                                   255885.037           220151.574        -13.96%
+ *Germany                         India                                       59843.693            43534.372        -27.25%
+ *Germany                         Singapore                                   84780.071            16956.186        -80.00%
+ *Germany                         *Slovakia                                   58842.713            41400.442        -29.64%
+ *Germany                         *Slovenia                                  106370.729            83337.440        -21.65%
+ *Germany                         South Africa                               133230.426            73208.633        -45.05%
+ *Germany                         *Spain                                     550475.310           534928.745         -2.82%
+ *Germany                         *Sweden                                    259522.145            82872.328        -68.07%
+ *Germany                         Switzerland                                989125.090           964197.916         -2.52%
+ *Germany                         Thailand                                    32884.289             8888.987        -72.97%
+ *Germany                         Türkiye                                    539752.804           532338.304         -1.37%
+ *Germany                         Ukraine                                    200801.598           182863.815         -8.93%
+ *Germany                         United Kingdom                            2543570.769          2792550.805         +9.79%
+ *Germany                         USA                                      14928743.518         15233039.393         +2.04%
+ *Hungary                         *Austria                                    31427.067            11442.877        -63.59%
+ *Hungary                         *Belgium                                    11718.087             6750.638        -42.39%
+ *Hungary                         Brazil                                      75515.971            60703.219        -19.62%
+ *Hungary                         *Bulgaria                                   21138.711            15865.087        -24.95%
+ *Hungary                         Canada                                     183078.686           191673.826         +4.69%
+ *Hungary                         China                                      125872.988           221847.623        +76.25%
+ *Hungary                         Colombia                                     7019.242             1403.971        -80.00%
+ *Hungary                         *Czechia                                    11022.424             7658.726        -30.52%
+ *Hungary                         *France                                     34138.058            19461.390        -42.99%
+ *Hungary                         *Germany                                   399542.243           452646.171        +13.29%
+ *Hungary                         *Italy                                      73500.015            67749.402         -7.82%
+ *Hungary                         Japan                                       59322.178            36415.877        -38.61%
+ *Hungary                         Rep. of Korea                               17948.031             9651.416        -46.23%
+ *Hungary                         *Luxembourg                                  4350.901              870.547        -79.99%
+ *Hungary                         Mexico                                      40685.456            35794.429        -12.02%
+ *Hungary                         *Netherlands                                10292.856             6872.212        -33.23%
+ *Hungary                         *Poland                                     72750.681            70844.828         -2.62%
+ *Hungary                         *Romania                                    16300.003            11289.893        -30.74%
+ *Hungary                         *Slovakia                                    9567.514             2875.872        -69.94%
+ *Hungary                         *Slovenia                                    9380.761             6014.773        -35.88%
+ *Hungary                         South Africa                                 7101.390             3579.326        -49.60%
+ *Hungary                         *Spain                                      40978.577            37333.115         -8.90%
+ *Hungary                         *Sweden                                      5447.379             3930.455        -27.85%
+ *Hungary                         Switzerland                                118860.054           103886.597        -12.60%
+ *Hungary                         Ukraine                                     38217.007            24669.866        -35.45%
+ *Hungary                         United Kingdom                             125597.415           135243.580         +7.68%
+ *Hungary                         USA                                       1371179.265          1375477.241         +0.31%
  *Ireland                         United Kingdom                               6215.222             6215.222         +0.00%
- *Italy                           *Austria                                    11153.258             6074.768        -45.53%
- *Italy                           *Belgium                                    44756.231            40460.468         -9.60%
- *Italy                           *Bulgaria                                   17464.298            12635.386        -27.65%
- *Italy                           Canada                                      46674.548            62259.451        +33.39%
- *Italy                           China                                       68023.162            71887.355         +5.68%
- *Italy                           *Croatia                                     5891.689             4532.261        -23.07%
- *Italy                           *Czechia                                    13381.820            11181.269        -16.44%
- *Italy                           *France                                    100594.565            89399.815        -11.13%
- *Italy                           *Germany                                   179736.758           264841.764        +47.35%
- *Italy                           China, Hong Kong SAR                        18817.613            12244.469        -34.93%
- *Italy                           *Hungary                                     6745.599             2291.583        -66.03%
- *Italy                           Japan                                      123494.530           152867.510        +23.78%
- *Italy                           Rep. of Korea                               58139.338            73599.028        +26.59%
- *Italy                           *Lithuania                                  12859.266            10756.651        -16.35%
- *Italy                           *Luxembourg                                 10513.218             5185.971        -50.67%
- *Italy                           Mexico                                      27058.240            41699.152        +54.11%
- *Italy                           *Netherlands                                10222.393             8719.898        -14.70%
- *Italy                           *Poland                                     46532.611            39660.137        -14.77%
- *Italy                           *Romania                                     9501.289             7714.279        -18.81%
- *Italy                           India                                        4512.587             3261.949        -27.71%
- *Italy                           Singapore                                   10838.242             7969.029        -26.47%
- *Italy                           *Slovakia                                    6993.440             6045.976        -13.55%
- *Italy                           *Slovenia                                   12051.333             9846.909        -18.29%
- *Italy                           *Spain                                      30482.875            25278.158        -17.07%
- *Italy                           Switzerland                                 67316.960            55836.779        -17.05%
- *Italy                           Thailand                                     4505.124             2549.749        -43.40%
- *Italy                           Türkiye                                     19333.492            11113.411        -42.52%
- *Italy                           Ukraine                                      7383.098             5581.733        -24.40%
- *Italy                           United Kingdom                              97323.929            95866.462         -1.50%
- *Italy                           USA                                        707114.240           638054.377         -9.77%
+ *Italy                           *Austria                                    11153.258             2259.426        -79.74%
+ *Italy                           *Belgium                                    44756.231            35308.124        -21.11%
+ *Italy                           *Bulgaria                                   17464.298             7829.958        -55.17%
+ *Italy                           Canada                                      46674.548            57447.006        +23.08%
+ *Italy                           China                                       68023.162            93553.354        +37.53%
+ *Italy                           *Croatia                                     5891.689             3128.412        -46.90%
+ *Italy                           *Czechia                                    13381.820             8513.649        -36.38%
+ *Italy                           *France                                    100594.565            79709.121        -20.76%
+ *Italy                           *Germany                                   179736.758           224711.966        +25.02%
+ *Italy                           China, Hong Kong SAR                        18817.613             5752.344        -69.43%
+ *Italy                           *Hungary                                     6745.599             1349.249        -80.00%
+ *Italy                           Japan                                      123494.530           125344.633         +1.50%
+ *Italy                           Rep. of Korea                               58139.338            54084.300         -6.97%
+ *Italy                           *Lithuania                                  12859.266             8755.286        -31.91%
+ *Italy                           *Luxembourg                                 10513.218             2107.387        -79.95%
+ *Italy                           Mexico                                      27058.240            32793.138        +21.19%
+ *Italy                           *Netherlands                                10222.393             7425.890        -27.36%
+ *Italy                           *Poland                                     46532.611            34952.151        -24.89%
+ *Italy                           *Romania                                     9501.289             6010.275        -36.74%
+ *Italy                           India                                        4512.587             1938.497        -57.04%
+ *Italy                           Singapore                                   10838.242             5091.332        -53.02%
+ *Italy                           *Slovakia                                    6993.440             3699.367        -47.10%
+ *Italy                           *Slovenia                                   12051.333             7612.966        -36.83%
+ *Italy                           *Spain                                      30482.875            16415.974        -46.15%
+ *Italy                           Switzerland                                 67316.960            47213.599        -29.86%
+ *Italy                           Thailand                                     4505.124              957.010        -78.76%
+ *Italy                           Türkiye                                     19333.492             5529.692        -71.40%
+ *Italy                           Ukraine                                      7383.098             4001.556        -45.80%
+ *Italy                           United Kingdom                              97323.929            93217.171         -4.22%
+ *Italy                           USA                                        707114.240           802702.913        +13.52%
  *Latvia                          *Lithuania                                  36579.036            36579.036         +0.00%
- *Lithuania                       *France                                      5325.803             6255.801        +17.46%
- *Lithuania                       *Germany                                    10672.523             2134.589        -80.00%
- *Lithuania                       *Latvia                                      4860.179            10359.115       +113.14%
- *Lithuania                       *Poland                                      4765.199             6874.198        +44.26%
- *Luxembourg                      *Belgium                                    22818.339             7416.012        -67.50%
- *Luxembourg                      *France                                     13127.021            30947.795       +135.76%
- *Luxembourg                      *Germany                                    11305.046             2261.031        -80.00%
- *Luxembourg                      *Netherlands                                 6000.080            12625.648       +110.42%
- *Netherlands                     *Austria                                     5514.760             1106.770        -79.93%
- *Netherlands                     *Belgium                                    65062.791            13099.929        -79.87%
- *Netherlands                     Canada                                      14348.399            17436.515        +21.52%
- *Netherlands                     China                                       29045.508             9738.272        -66.47%
- *Netherlands                     *Denmark                                     7501.385             2837.501        -62.17%
- *Netherlands                     *France                                     11690.230             2341.243        -79.97%
- *Netherlands                     *Germany                                   137080.064           308571.538       +125.10%
- *Netherlands                     *Italy                                       5052.678             1013.649        -79.94%
- *Netherlands                     Kazakhstan                                   4499.880             2425.181        -46.11%
- *Netherlands                     Rep. of Korea                               21559.856            21309.944         -1.16%
- *Netherlands                     *Lithuania                                   9832.243             1969.888        -79.97%
- *Netherlands                     *Romania                                     4740.068             2526.995        -46.69%
- *Netherlands                     Switzerland                                  4292.319              860.183        -79.96%
- *Netherlands                     United Kingdom                              26713.620             5351.385        -79.97%
- *Netherlands                     USA                                         54586.971            10931.778        -79.97%
+ *Lithuania                       *France                                      5325.803             6096.791        +14.48%
+ *Lithuania                       *Germany                                    10672.523             2134.506        -80.00%
+ *Lithuania                       *Latvia                                      4860.179            10065.473       +107.10%
+ *Lithuania                       *Poland                                      4765.199             7326.935        +53.76%
+ *Luxembourg                      *Belgium                                    22818.339             7387.506        -67.62%
+ *Luxembourg                      *France                                     13127.021            31092.112       +136.86%
+ *Luxembourg                      *Germany                                    11305.046             2261.010        -80.00%
+ *Luxembourg                      *Netherlands                                 6000.080            12509.858       +108.49%
+ *Netherlands                     *Austria                                     5514.760             1102.987        -80.00%
+ *Netherlands                     *Belgium                                    65062.791            13012.680        -80.00%
+ *Netherlands                     Canada                                      14348.399            16344.498        +13.91%
+ *Netherlands                     China                                       29045.508             8511.748        -70.70%
+ *Netherlands                     *Denmark                                     7501.385             1500.886        -79.99%
+ *Netherlands                     *France                                     11690.230             2338.088        -80.00%
+ *Netherlands                     *Germany                                   137080.064           303228.981       +121.21%
+ *Netherlands                     *Italy                                       5052.678             1010.575        -80.00%
+ *Netherlands                     Kazakhstan                                   4499.880             1250.315        -72.21%
+ *Netherlands                     Rep. of Korea                               21559.856            15865.604        -26.41%
+ *Netherlands                     *Lithuania                                   9832.243             1966.480        -80.00%
+ *Netherlands                     *Romania                                     4740.068             1131.512        -76.13%
+ *Netherlands                     Switzerland                                  4292.319              858.493        -80.00%
+ *Netherlands                     United Kingdom                              26713.620             5342.824        -80.00%
+ *Netherlands                     USA                                         54586.971            28055.100        -48.60%
  *Poland                          *Czechia                                     5060.473             1012.095        -80.00%
  *Poland                          *Germany                                    84299.542           180840.647       +114.52%
  *Poland                          *Italy                                       4927.891              985.578        -80.00%
@@ -466,209 +369,223 @@ FLUSSI DEI MEMBRI DELLA COALIZIONE
  *Poland                          *Netherlands                                 5989.930             1197.986        -80.00%
  *Poland                          Switzerland                                  5713.340             1142.668        -80.00%
  *Poland                          Ukraine                                      8918.588             1783.718        -80.00%
- *Portugal                        *Denmark                                     4721.813             4421.732         -6.36%
- *Portugal                        *France                                     59213.665            59955.991         +1.25%
- *Portugal                        *Germany                                   123385.686           123024.973         -0.29%
- *Portugal                        Japan                                       10330.411             8977.434        -13.10%
- *Portugal                        *Poland                                      9812.220            10088.409         +2.81%
- *Portugal                        South Africa                                10927.744             7690.142        -29.63%
- *Portugal                        Switzerland                                 38109.817            38828.277         +1.89%
- *Portugal                        United Kingdom                              71818.117            75332.516         +4.89%
- *Romania                         *Austria                                    10292.152             9680.005         -5.95%
- *Romania                         *Belgium                                    21434.240            21743.270         +1.44%
- *Romania                         *France                                     35397.224            35758.417         +1.02%
- *Romania                         *Germany                                    83233.202            79275.861         -4.75%
- *Romania                         *Ireland                                     8183.896             7672.342         -6.25%
- *Romania                         *Netherlands                                14707.728            14652.869         -0.37%
- *Romania                         *Poland                                      5892.627             8159.844        +38.48%
- *Romania                         *Spain                                       6035.156             5128.417        -15.02%
- *Romania                         *Sweden                                     10458.765             9657.370         -7.66%
- *Romania                         Ukraine                                     25718.226            24778.584         -3.65%
- *Romania                         United Kingdom                              11956.338            16802.576        +40.53%
- *Slovakia                        Azerbaijan                                  13675.224            14784.052         +8.11%
- *Slovakia                        *Austria                                    16567.034            20975.214        +26.61%
- *Slovakia                        *Belgium                                    96322.205           108146.881        +12.28%
- *Slovakia                        Brazil                                      31697.437            37464.939        +18.20%
- *Slovakia                        *Bulgaria                                   26748.289            28490.815         +6.51%
- *Slovakia                        Canada                                      58497.109            77913.605        +33.19%
- *Slovakia                        China                                     1949700.717          2230015.317        +14.38%
- *Slovakia                        Colombia                                    46715.342            49673.024         +6.33%
- *Slovakia                        *Croatia                                    22630.660            23113.018         +2.13%
- *Slovakia                        *Czechia                                   319544.741           344871.487         +7.93%
- *Slovakia                        *Estonia                                    31358.066            32247.104         +2.84%
- *Slovakia                        *France                                     15826.328            20832.773        +31.63%
- *Slovakia                        *Germany                                  2452701.064          2173538.966        -11.38%
- *Slovakia                        *Hungary                                    59236.864            60295.063         +1.79%
- *Slovakia                        *Ireland                                    22073.988            25059.607        +13.53%
- *Slovakia                        *Italy                                      77387.838            84811.523         +9.59%
- *Slovakia                        Japan                                       59073.790            48996.460        -17.06%
- *Slovakia                        Kazakhstan                                  12277.592            17693.052        +44.11%
- *Slovakia                        Rep. of Korea                              203681.546           209374.807         +2.80%
- *Slovakia                        *Luxembourg                                  8821.822            10260.509        +16.31%
- *Slovakia                        *Netherlands                                35537.592            42738.193        +20.26%
- *Slovakia                        *Poland                                    267450.553           297443.790        +11.21%
- *Slovakia                        *Portugal                                   15329.832            17564.804        +14.58%
- *Slovakia                        *Romania                                    20798.013            23691.011        +13.91%
- *Slovakia                        India                                       63721.022            65720.034         +3.14%
- *Slovakia                        Singapore                                    8470.032             9095.478         +7.38%
- *Slovakia                        *Slovenia                                    5363.532             6917.348        +28.97%
- *Slovakia                        South Africa                                 7523.216             9255.014        +23.02%
- *Slovakia                        *Spain                                     146398.670           160763.511         +9.81%
- *Slovakia                        Switzerland                                 27115.846            35780.101        +31.95%
- *Slovakia                        Türkiye                                    262421.829           315429.932        +20.20%
- *Slovakia                        Ukraine                                     79386.723            90852.328        +14.44%
- *Slovakia                        United Kingdom                             722357.591           787066.937         +8.96%
- *Slovakia                        USA                                       1163552.527           869087.935        -25.31%
- *Slovenia                        *Bulgaria                                   12554.426            12311.113         -1.94%
- *Slovenia                        *Croatia                                    14865.586            13316.957        -10.42%
- *Slovenia                        *Finland                                    11311.987            10776.605         -4.73%
- *Slovenia                        *France                                      6477.369             6741.379         +4.08%
- *Slovenia                        *Germany                                    45586.023            47633.749         +4.49%
- *Slovenia                        China, Hong Kong SAR                        12565.585            10684.634        -14.97%
- *Slovenia                        *Netherlands                                 9832.182            10631.017         +8.12%
- *Slovenia                        *Romania                                    14982.547            15390.257         +2.72%
- *Slovenia                        *Spain                                      18077.706            18767.700         +3.82%
- *Spain                           *Austria                                    16029.019            12997.011        -18.92%
- *Spain                           *Belgium                                    24942.122            23669.352         -5.10%
- *Spain                           *Bulgaria                                    6986.431             5703.507        -18.36%
- *Spain                           Colombia                                     9962.692             4274.098        -57.10%
- *Spain                           *Croatia                                    31958.401            21336.871        -33.24%
- *Spain                           *Czechia                                    22480.161            18461.146        -17.88%
- *Spain                           *Denmark                                   111698.004            94535.833        -15.36%
- *Spain                           *Finland                                    11198.759             7513.591        -32.91%
- *Spain                           *France                                    318716.959           299789.533         -5.94%
- *Spain                           *Germany                                  1064746.717          1193750.624        +12.12%
- *Spain                           *Hungary                                    15374.883            12639.603        -17.79%
- *Spain                           *Ireland                                     4544.192             3944.680        -13.19%
- *Spain                           *Italy                                     181416.685           166456.309         -8.25%
- *Spain                           Japan                                       10994.080            13125.735        +19.39%
- *Spain                           *Luxembourg                                  9431.787             5665.854        -39.93%
- *Spain                           Mexico                                     366576.623           416880.793        +13.72%
- *Spain                           Morocco                                      9053.636             5717.632        -36.85%
- *Spain                           *Poland                                    102682.231            95840.378         -6.66%
- *Spain                           *Portugal                                  111405.272           104065.313         -6.59%
- *Spain                           *Slovakia                                   11632.510             9584.289        -17.61%
- *Spain                           Switzerland                                 60665.249            55025.217         -9.30%
- *Spain                           Ukraine                                      4425.086             3014.515        -31.88%
- *Spain                           United Kingdom                              46007.620            46081.191         +0.16%
- *Spain                           USA                                         83973.673            16829.717        -79.96%
- *Sweden                          *Austria                                     9446.442            11162.967        +18.17%
- *Sweden                          *Belgium                                    81181.437           153580.199        +89.18%
- *Sweden                          Canada                                      59005.957            55753.371         -5.51%
- *Sweden                          China                                      689631.751           740416.501         +7.36%
- *Sweden                          *Czechia                                    50746.430            53720.544         +5.86%
- *Sweden                          *Denmark                                    61515.885            78891.169        +28.25%
- *Sweden                          *Estonia                                    22144.722            22675.585         +2.40%
- *Sweden                          *Finland                                    36494.218            37253.069         +2.08%
- *Sweden                          *France                                     12120.346            23599.253        +94.71%
- *Sweden                          *Germany                                   386332.696           300713.939        -22.16%
- *Sweden                          *Hungary                                    74815.150            77004.315         +2.93%
- *Sweden                          *Italy                                       9975.392            12222.260        +22.52%
- *Sweden                          Japan                                       21372.850             4277.861        -79.98%
- *Sweden                          Rep. of Korea                               27280.097            22071.642        -19.09%
- *Sweden                          *Latvia                                     12065.379            12421.430         +2.95%
- *Sweden                          *Lithuania                                  16879.682            19046.263        +12.84%
- *Sweden                          *Netherlands                                77073.040            95518.806        +23.93%
- *Sweden                          *Poland                                    151047.030           172712.013        +14.34%
- *Sweden                          *Romania                                     5918.874             6939.631        +17.25%
- *Sweden                          India                                       17296.291            19000.054         +9.85%
- *Sweden                          *Slovakia                                    6398.176             6136.546         -4.09%
- *Sweden                          *Slovenia                                    7434.195             8388.542        +12.84%
- *Sweden                          *Spain                                      48099.419            57736.907        +20.04%
- *Sweden                          Türkiye                                    131369.683           159092.049        +21.10%
- *Sweden                          Ukraine                                     25156.427            28255.472        +12.32%
- *Sweden                          United Kingdom                             327502.515           359556.716         +9.79%
- *Sweden                          USA                                       1967016.541          1797173.520         -8.63%
+ *Portugal                        *Denmark                                     4721.813             3926.688        -16.84%
+ *Portugal                        *France                                     59213.665            60445.472         +2.08%
+ *Portugal                        *Germany                                   123385.686           124643.869         +1.02%
+ *Portugal                        Japan                                       10330.411             6856.055        -33.63%
+ *Portugal                        *Poland                                      9812.220            10341.804         +5.40%
+ *Portugal                        South Africa                                10927.744             2862.566        -73.80%
+ *Portugal                        Switzerland                                 38109.817            38814.994         +1.85%
+ *Portugal                        United Kingdom                              71818.117            80428.025        +11.99%
+ *Romania                         *Austria                                    10292.152             8597.156        -16.47%
+ *Romania                         *Belgium                                    21434.240            21863.932         +2.00%
+ *Romania                         *France                                     35397.224            35443.098         +0.13%
+ *Romania                         *Germany                                    83233.202            78781.411         -5.35%
+ *Romania                         *Ireland                                     8183.896             6793.418        -16.99%
+ *Romania                         *Netherlands                                14707.728            14277.570         -2.92%
+ *Romania                         *Poland                                      5892.627             9058.524        +53.73%
+ *Romania                         *Spain                                       6035.156             3048.016        -49.50%
+ *Romania                         *Sweden                                     10458.765             8385.862        -19.82%
+ *Romania                         Ukraine                                     25718.226            22943.258        -10.79%
+ *Romania                         United Kingdom                              11956.338            24117.308       +101.71%
+ *Slovakia                        Azerbaijan                                  13675.224            10764.072        -21.29%
+ *Slovakia                        *Austria                                    16567.034            14255.290        -13.95%
+ *Slovakia                        *Belgium                                    96322.205           103029.814         +6.96%
+ *Slovakia                        Brazil                                      31697.437            31124.914         -1.81%
+ *Slovakia                        *Bulgaria                                   26748.289            21557.880        -19.40%
+ *Slovakia                        Canada                                      58497.109            86040.797        +47.09%
+ *Slovakia                        China                                     1949700.717          2372013.537        +21.66%
+ *Slovakia                        Colombia                                    46715.342            46114.303         -1.29%
+ *Slovakia                        *Croatia                                    22630.660            16753.002        -25.97%
+ *Slovakia                        *Czechia                                   319544.741           297625.652         -6.86%
+ *Slovakia                        *Estonia                                    31358.066            25895.294        -17.42%
+ *Slovakia                        *France                                     15826.328            18314.989        +15.72%
+ *Slovakia                        *Germany                                  2452701.064          2039793.735        -16.83%
+ *Slovakia                        *Hungary                                    59236.864            52340.008        -11.64%
+ *Slovakia                        *Ireland                                    22073.988            19998.056         -9.40%
+ *Slovakia                        *Italy                                      77387.838            80015.145         +3.39%
+ *Slovakia                        Japan                                       59073.790            36529.683        -38.16%
+ *Slovakia                        Kazakhstan                                  12277.592            13424.209         +9.34%
+ *Slovakia                        Rep. of Korea                              203681.546           182320.806        -10.49%
+ *Slovakia                        *Luxembourg                                  8821.822             6370.693        -27.78%
+ *Slovakia                        *Netherlands                                35537.592            38075.131         +7.14%
+ *Slovakia                        *Poland                                    267450.553           286104.785         +6.97%
+ *Slovakia                        *Portugal                                   15329.832            14542.694         -5.13%
+ *Slovakia                        *Romania                                    20798.013            18409.762        -11.48%
+ *Slovakia                        India                                       63721.022            45115.820        -29.20%
+ *Slovakia                        Singapore                                    8470.032             6067.234        -28.37%
+ *Slovakia                        *Slovenia                                    5363.532             1083.152        -79.81%
+ *Slovakia                        South Africa                                 7523.216             3123.127        -58.49%
+ *Slovakia                        *Spain                                     146398.670           147424.513         +0.70%
+ *Slovakia                        Switzerland                                 27115.846            30664.776        +13.09%
+ *Slovakia                        Türkiye                                    262421.829           291328.089        +11.02%
+ *Slovakia                        Ukraine                                     79386.723            77521.346         -2.35%
+ *Slovakia                        United Kingdom                             722357.591           783637.865         +8.48%
+ *Slovakia                        USA                                       1163552.527          1132584.461         -2.66%
+ *Slovenia                        *Bulgaria                                   12554.426            12157.288         -3.16%
+ *Slovenia                        *Croatia                                    14865.586            11698.794        -21.30%
+ *Slovenia                        *Finland                                    11311.987            10187.542         -9.94%
+ *Slovenia                        *France                                      6477.369             7127.719        +10.04%
+ *Slovenia                        *Germany                                    45586.023            47482.516         +4.16%
+ *Slovenia                        China, Hong Kong SAR                        12565.585             9928.030        -20.99%
+ *Slovenia                        *Netherlands                                 9832.182            11812.223        +20.14%
+ *Slovenia                        *Romania                                    14982.547            16169.441         +7.92%
+ *Slovenia                        *Spain                                      18077.706            19689.857         +8.92%
+ *Spain                           *Austria                                    16029.019            10593.718        -33.91%
+ *Spain                           *Belgium                                    24942.122            23713.982         -4.92%
+ *Spain                           *Bulgaria                                    6986.431             4540.332        -35.01%
+ *Spain                           Colombia                                     9962.692             2053.839        -79.38%
+ *Spain                           *Croatia                                    31958.401            11038.755        -65.46%
+ *Spain                           *Czechia                                    22480.161            14959.652        -33.45%
+ *Spain                           *Denmark                                   111698.004            80192.483        -28.21%
+ *Spain                           *Finland                                    11198.759             3841.646        -65.70%
+ *Spain                           *France                                    318716.959           296152.320         -7.08%
+ *Spain                           *Germany                                  1064746.717          1182064.142        +11.02%
+ *Spain                           *Hungary                                    15374.883             9759.090        -36.53%
+ *Spain                           *Ireland                                     4544.192             3478.224        -23.46%
+ *Spain                           *Italy                                     181416.685           160405.147        -11.58%
+ *Spain                           Japan                                       10994.080             9633.487        -12.38%
+ *Spain                           *Luxembourg                                  9431.787             2546.793        -73.00%
+ *Spain                           Mexico                                     366576.623           385358.949         +5.12%
+ *Spain                           Morocco                                      9053.636             2287.387        -74.74%
+ *Spain                           *Poland                                    102682.231            96267.703         -6.25%
+ *Spain                           *Portugal                                  111405.272            98721.328        -11.39%
+ *Spain                           *Slovakia                                   11632.510             6822.416        -41.35%
+ *Spain                           Switzerland                                 60665.249            53187.927        -12.33%
+ *Spain                           Ukraine                                      4425.086             2070.083        -53.22%
+ *Spain                           United Kingdom                              46007.620            60219.991        +30.89%
+ *Spain                           USA                                         83973.673           116993.398        +39.32%
+ *Sweden                          *Austria                                     9446.442             9673.164         +2.40%
+ *Sweden                          *Belgium                                    81181.437           146928.755        +80.99%
+ *Sweden                          Canada                                      59005.957            56347.383         -4.51%
+ *Sweden                          China                                      689631.751           782249.537        +13.43%
+ *Sweden                          *Czechia                                    50746.430            50184.467         -1.11%
+ *Sweden                          *Denmark                                    61515.885            58722.218         -4.54%
+ *Sweden                          *Estonia                                    22144.722            20753.087         -6.28%
+ *Sweden                          *Finland                                    36494.218            30733.767        -15.78%
+ *Sweden                          *France                                     12120.346            22262.030        +83.67%
+ *Sweden                          *Germany                                   386332.696           252120.064        -34.74%
+ *Sweden                          *Hungary                                    74815.150            64409.198        -13.91%
+ *Sweden                          *Italy                                       9975.392            11671.253        +17.00%
+ *Sweden                          Japan                                       21372.850             4274.607        -80.00%
+ *Sweden                          Rep. of Korea                               27280.097             9092.137        -66.67%
+ *Sweden                          *Latvia                                     12065.379            11256.510         -6.70%
+ *Sweden                          *Lithuania                                  16879.682            16593.395         -1.70%
+ *Sweden                          *Netherlands                                77073.040            91533.807        +18.76%
+ *Sweden                          *Poland                                    151047.030           172428.803        +14.16%
+ *Sweden                          *Romania                                     5918.874             5925.706         +0.12%
+ *Sweden                          India                                       17296.291            10480.689        -39.40%
+ *Sweden                          *Slovakia                                    6398.176             4930.163        -22.94%
+ *Sweden                          *Slovenia                                    7434.195             5786.089        -22.17%
+ *Sweden                          *Spain                                      48099.419            52446.590         +9.04%
+ *Sweden                          Türkiye                                    131369.683           157304.694        +19.74%
+ *Sweden                          Ukraine                                     25156.427            26534.542         +5.48%
+ *Sweden                          United Kingdom                             327502.515           366416.576        +11.88%
+ *Sweden                          USA                                       1967016.541          1894261.394         -3.70%
 
 ===========================================================================================================================
 UTILITA DEI MEMBRI DELLA COALIZIONE
 ===========================================================================================================================
  Paese i                                          u_i(w^0)                u_i(w^NE)  Delta_u_i (%)
- *Austria                           247258695778157.718750   245112004953502.468750         -0.87%
- *Belgium                           742324473793965.750000   746191891263700.000000         +0.52%
- *Bulgaria                            2121499745105.852051     2118239319068.456787         -0.15%
- *Croatia                             2693189792435.781250     2689050815278.634766         -0.15%
- *Czechia                           675996891392899.500000   673552038526864.125000         -0.36%
- *Denmark                            87182434292265.015625    87130108603890.562500         -0.06%
- *Estonia                            47045521058564.687500      385098198389.972656        -99.18%
- *Finland                            77287252770028.156250    78547607501757.984375         +1.63%
- *France                            302770366782918.000000   304563275083401.375000         +0.59%
- *Germany                          8574376800392104.000000  8603381943120854.000000         +0.34%
- *Hungary                           551593368704292.625000   557022434047548.625000         +0.98%
- *Ireland                             1328597731193.768555     1325889081481.851074         -0.20%
- *Italy                             337531425387875.062500   335165517259316.625000         -0.70%
- *Latvia                              6741440390914.513672     6749142507493.708984         +0.11%
- *Lithuania                           5207979059088.095703     3823065524669.925293        -26.59%
- *Luxembourg                         11013330303205.023438     7141519753222.791016        -35.16%
- *Netherlands                        81952663850448.187500    73658447490643.656250        -10.12%
- *Poland                             40864664682905.132812    25828654397951.734375        -36.79%
- *Portugal                           68765150887519.523438    68723151210285.320312         -0.06%
- *Romania                            47933819415058.828125    47872170126905.718750         -0.13%
- *Slovakia                         1714573434588148.500000  1703085002293538.500000         -0.67%
- *Slovenia                           28423209680978.902344    28508007717986.968750         +0.30%
- *Spain                             544430034274301.125000   545154833623461.562500         +0.13%
- *Sweden                            821516751020954.250000   816241502286230.000000         -0.64%
+ *Austria                           589259315789708.375000   591083930584064.375000         +0.31%
+ *Belgium                          1795889528466412.000000  1803936437238951.000000         +0.45%
+ *Bulgaria                            4903424582802.161133     4903765192949.298828         +0.01%
+ *Croatia                             6224729298027.726562     6225161688642.426758         +0.01%
+ *Czechia                          1538668320285568.500000  1538059889269637.750000         -0.04%
+ *Denmark                           200116268977370.281250   200319847621087.468750         +0.10%
+ *Estonia                           105937719483129.281250    57541161378873.523438        -45.68%
+ *Finland                           188170694792376.875000   188845740074946.343750         +0.36%
+ *France                            744707450796059.000000   749124988770365.750000         +0.59%
+ *Germany                         20958276244194748.000000 21017714613620176.000000         +0.28%
+ *Hungary                          1410806116109056.250000  1415911804587366.000000         +0.36%
+ *Ireland                             3040393806459.745117     3036226636008.661133         -0.14%
+ *Italy                             847612410589525.000000   849971332421076.750000         +0.28%
+ *Latvia                             15190449103785.966797    15199548441916.972656         +0.06%
+ *Lithuania                          11891603639791.574219    10066727400065.355469        -15.35%
+ *Luxembourg                         25061924513444.351562    20855604323960.625000        -16.78%
+ *Netherlands                       194213035598268.156250   187315937607240.437500         -3.55%
+ *Poland                             93158219167050.812500    82898166866752.968750        -11.01%
+ *Portugal                          157248088867502.687500   157521463892122.937500         +0.17%
+ *Romania                           109341443598446.906250   109476822853213.843750         +0.12%
+ *Slovakia                         4078468371572379.500000  4061202467521335.000000         -0.42%
+ *Slovenia                           64660509534094.500000    65026513111443.906250         +0.57%
+ *Spain                            1251896359890116.000000  1258549560998971.000000         +0.53%
+ *Sweden                           2099321416865673.000000  2082836414767106.250000         -0.79%
 
 ===========================================================================================================================
 MOLTIPLICATORI DI LAGRANGE ALL'EQUILIBRIO
 ===========================================================================================================================
  Paese i                                 pi_i (centralita)            mu_i (budget)
- *Austria                                -599759897.765406         231449095.953347
- *Belgium                                 -52335461.603556         205369859.838955
- *Bulgaria                                        0.000000         216119545.607291
- *Croatia                                         0.000000         216122186.639291
- *Czechia                                 263871278.013745         190217392.486272
- *Denmark                                  22754458.960181         206610468.338504
- *Estonia                         31097417297267670384640.000000 -2470207619913985.500000
- *Finland                                 365681982.010115         143570850.219590
- *France                                 -180239250.227160         205846541.018258
- *Germany                                   4796691.174597         199888856.116076
- *Hungary                                  19859730.766109         201958373.893625
- *Ireland                                         0.000000         213329319.770372
- *Italy                                  -667005076.389748         232296093.271472
- *Latvia                                          0.000000         184508484.791499
- *Lithuania                             13830621932.166370          70656164.909464
- *Luxembourg                            32397591202.286880         -72698237.459451
- *Netherlands                           -1021520169.575019         292592583.060355
- *Poland                          -219442224520628000.000000 36776323350054672.000000
- *Portugal                                117767518.946015         197680318.062826
- *Romania                                 169673305.814134         200281476.619650
- *Slovakia                                490310764.316757         163505718.312311
- *Slovenia                                156144323.809408         181501619.068981
- *Spain                                  -194444208.907352         217504800.472224
- *Sweden                                  708081684.874003         159616455.352112
+ *Austria                                -372330295.503388         500422051.049697
+ *Belgium                                 159024581.329451         465967492.010919
+ *Bulgaria                                        0.000000         500320948.499399
+ *Croatia                                         0.000000         500323589.531399
+ *Czechia                                 441919217.471666         440612876.189172
+ *Denmark                                 218339012.907918         458051178.829796
+ *Estonia                         23868191559961829965824.000000 -1895957565150423.250000
+ *Finland                                 170599682.083324         470982652.835163
+ *France                                   87595777.764074         462413106.684637
+ *Germany                                 352328038.007505         462564407.121497
+ *Hungary                                  94798559.568441         479003099.192377
+ *Ireland                                         0.000000         488514591.435135
+ *Italy                                  -351416527.032754         508769667.375261
+ *Latvia                                          0.000000         415526216.762983
+ *Lithuania                             20792175123.003902         292406935.048534
+ *Luxembourg                            33017248846.229053         179664665.399291
+ *Netherlands                           -1117218460.622074         595786642.976493
+ *Poland                          -210805407133945056.000000 35328879375903624.000000
+ *Portugal                                273991571.867361         450390746.138191
+ *Romania                                 339326198.907907         457613714.085973
+ *Slovakia                                626560144.309662         437863402.655325
+ *Slovenia                                517096033.768939         405835347.458969
+ *Spain                                   -21975077.097680         475724135.430466
+ *Sweden                                 1066849984.604417         418759498.179148
 ===========================================================================================================================
 
 ======================================================================================================================================
 MOLTIPLICATORI nu_ij DEI LOWER BOUND w_ij >= ell_ij (paper, eq. (21)-(22))
 ======================================================================================================================================
- arcs at the lower bound: 20/371 | listed below; nu_ij should be 0 on the other arcs (max |nu_ij| there = 3.966e+06, relative to max |nu| 9.272e+17: 4.28e-12)
- min nu_ij over the arcs at the bound = 6.547294e+06 (must be >= 0)
+ arcs at the lower bound: 34/371 | listed below; nu_ij should be 0 on the other arcs (max |nu_ij| there = 1.544e+07, relative to max |nu| 7.117e+17: 2.17e-11)
+ min nu_ij over the arcs at the bound = 1.005977e+07 (must be >= 0)
  nu_ij computed from the stationarity condition; only the ACTIVE constraints (w_ij at the lower bound) are listed, ordered by exporter i (members of S) and then by importer j
  Paese i                          Paese j                                        w_ij^NE                ell_ij                 nu_ij
 --------------------------------------------------------------------------------------------------------------------------------------
- ACTIVE constraints (w_ij at the lower bound): 20 arcs
+ ACTIVE constraints (w_ij at the lower bound): 34 arcs
 --------------------------------------------------------------------------------------------------------------------------------------
- *Belgium                         *Finland                                      1502.560              1495.218          2.034171e+07
- *Estonia                         *Lithuania                                   29660.885             29660.885          9.272229e+17
- *Lithuania                       *Germany                                      2134.589              2134.505          2.009892e+09
- *Luxembourg                      *Germany                                      2261.031              2261.009          4.902254e+09
- *Netherlands                     *Austria                                      1106.770              1102.952          5.173830e+07
- *Netherlands                     *Belgium                                     13099.929             13012.558          8.791620e+06
- *Netherlands                     *France                                       2341.243              2338.046          5.394356e+07
- *Netherlands                     *Italy                                        1013.649              1010.536          5.588903e+07
- *Netherlands                     *Lithuania                                    1969.888              1966.449          5.415363e+07
- *Netherlands                     Switzerland                                    860.183               858.464          8.212209e+07
- *Netherlands                     USA                                          10931.778             10917.394          1.670452e+07
- *Netherlands                     United Kingdom                                5351.385              5342.724          2.826064e+07
- *Poland                          *Czechia                                      1012.095              1012.095          3.418362e+16
- *Poland                          *Italy                                         985.578               985.578          3.443420e+16
- *Poland                          *Lithuania                                   18013.232             18013.232          3.676976e+16
- *Poland                          *Netherlands                                  1197.986              1197.986          3.587492e+16
- *Poland                          Switzerland                                   1142.668              1142.668          3.672681e+16
- *Poland                          Ukraine                                       1783.718              1783.718          3.677221e+16
- *Spain                           USA                                          16829.717             16794.735          6.547294e+06
- *Sweden                          Japan                                         4277.861              4274.570          3.175258e+07
+ *Austria                         *Hungary                                      7294.327              7293.278          1.878256e+07
+ *Belgium                         *Czechia                                      2165.251              2162.880          1.367063e+07
+ *Belgium                         *Finland                                      1495.260              1495.218          7.172715e+07
+ *Czechia                         *Sweden                                       1178.640              1176.205          1.323285e+07
+ *Estonia                         *Lithuania                                   29660.885             29660.885          7.116711e+17
+ *France                          *Slovakia                                      858.767               858.686          4.246521e+07
+ *France                          *Sweden                                       2084.222              2084.115          2.984109e+07
+ *Germany                         Armenia                                       3121.724              3121.615          3.344236e+07
+ *Germany                         China, Hong Kong SAR                          7994.859              7994.780          3.780686e+07
+ *Germany                         *Finland                                      5751.581              5751.525          5.202110e+07
+ *Germany                         Malaysia                                      9593.312              9592.593          1.005977e+07
+ *Germany                         Singapore                                    16956.186             16956.014          1.908742e+07
+ *Hungary                         Colombia                                      1403.971              1403.848          3.220244e+07
+ *Hungary                         *Luxembourg                                    870.547               870.180          3.426422e+07
+ *Italy                           *Hungary                                      1349.249              1349.120          5.025838e+07
+ *Italy                           *Luxembourg                                   2107.387              2102.644          2.013230e+07
+ *Lithuania                       *Germany                                      2134.506              2134.505          3.114126e+09
+ *Luxembourg                      *Germany                                      2261.010              2261.009          4.974264e+09
+ *Netherlands                     *Austria                                      1102.987              1102.952          1.146344e+08
+ *Netherlands                     *Belgium                                     13012.680             13012.558          4.945683e+07
+ *Netherlands                     *Denmark                                      1500.886              1500.277          4.040081e+07
+ *Netherlands                     *France                                       2338.088              2338.046          9.972562e+07
+ *Netherlands                     *Italy                                        1010.575              1010.536          1.035062e+08
+ *Netherlands                     *Lithuania                                    1966.480              1966.449          1.263037e+08
+ *Netherlands                     Switzerland                                    858.493               858.464          1.325899e+08
+ *Netherlands                     United Kingdom                                5342.824              5342.724          5.418991e+07
+ *Poland                          *Czechia                                      1012.095              1012.095          3.283822e+16
+ *Poland                          *Italy                                         985.578               985.578          3.307893e+16
+ *Poland                          *Lithuania                                   18013.232             18013.232          3.532258e+16
+ *Poland                          *Netherlands                                  1197.986              1197.986          3.446295e+16
+ *Poland                          Switzerland                                   1142.668              1142.668          3.528131e+16
+ *Poland                          Ukraine                                       1783.718              1783.718          3.532492e+16
+ *Slovakia                        *Slovenia                                     1083.152              1072.706          1.392770e+07
+ *Sweden                          Japan                                         4274.607              4274.570          8.171985e+07
 ======================================================================================================================================
 
 ======================================================================================================================================================
@@ -676,9 +593,9 @@ MULTIPLIERS TABLE - Experiment 3.1
 ======================================================================================================================================================
  Multiplier             Constraints  Active  Non-active  Not unique   Minimum (reference)                             Maximum (reference)
 ------------------------------------------------------------------------------------------------------------------------------------------------------
- mu_i (budget)                   24      18           0           6   -7.269824e+07 (Luxembourg)                      2.925926e+08 (Netherlands)
- pi_i (centrality)               24      18           0           6   -1.021520e+09 (Netherlands)                     3.239759e+10 (Luxembourg)
- nu_ij (lower bound)            371      13         345          13   6.547294e+06 (Spain -> USA)                     4.902254e+09 (Luxembourg -> Germany)
+ mu_i (budget)                   24      18           0           6   1.796647e+08 (Luxembourg)                       5.957866e+08 (Netherlands)
+ pi_i (centrality)               24      18           0           6   -1.117218e+09 (Netherlands)                     3.301725e+10 (Luxembourg)
+ nu_ij (lower bound)            371      27         331          13   1.005977e+07 (Germany -> Malaysia)              4.974264e+09 (Luxembourg -> Germany)
 ------------------------------------------------------------------------------------------------------------------------------------------------------
  Active: mu_i, pi_i nonzero; nu_ij arc at the lower bound. Not unique: members for which uniqueness is not guaranteed (Prop. 5 fails or Prop. 4 not verified)
  (excluded from all the other columns). Minimum/maximum over the unique multipliers (18/24 members, 358/371 arcs); for nu_ij over the active arcs.
@@ -691,19 +608,19 @@ TREND TABLE 1 - FLOW SHIFTS vs Delta c_i | SECTOR 870323 | EXPERIMENT 3.1
  Concordant = the correlation has the sign of Delta c_i (members with at least 4 importers).
 --------------------------------------------------------------------------------------------------------------
  Member                       Delta c_i (%)   Importers    Spearman    Concordant
- Austria                             +13.26          18       +0.40           yes
- Czechia                              -8.48          28       -0.08           yes
+ Austria                             +13.26          18       +0.57           yes
+ Czechia                              -8.48          28       -0.09           yes
  Estonia                             -95.41           2        n.d.             -
- France                              +16.39          28       +0.43           yes
- Italy                               +13.54          30       +0.46           yes
+ France                              +16.39          28       +0.50           yes
+ Italy                               +13.54          30       +0.49           yes
  Latvia                              -77.49           1        n.d.             -
  Lithuania                           -77.49           4       -1.00           yes
  Luxembourg                          -68.41           4       -0.60           yes
- Netherlands                         +69.58          15       +0.02           yes
+ Netherlands                         +69.58          15       -0.12            no
  Poland                             +111.87           7       +0.89           yes
- Slovakia                             -9.75          34       +0.14            no
- Spain                                +9.47          24       +0.26           yes
- Sweden                              -10.09          27       -0.26           yes
+ Slovakia                             -9.75          34       -0.08           yes
+ Spain                                +9.47          24       +0.41           yes
+ Sweden                              -10.09          27       -0.28           yes
 --------------------------------------------------------------------------------------------------------------
  Concordant members: 10 of 11
 ==============================================================================================================
@@ -714,32 +631,32 @@ TREND TABLE 2 - REALLOCATED EXPORT vs |Delta c_i| | SECTOR 870323 | EXPERIMENT 3
  Reallocated = sum_j |w_ij^NE - w_ij^0| / 2, as a percentage of the baseline export of member i.
 --------------------------------------------------------------------------------------------------------------
  Member                       Delta c_i (%)   Reallocated (%)
- Austria                             +13.26             10.53
- Belgium                              +2.03              4.09
+ Austria                             +13.26             12.46
+ Belgium                              +2.03              6.72
  Bulgaria                             -0.36              0.00
  Croatia                              -0.36              0.00
- Czechia                              -8.48              3.91
- Denmark                              +1.26              0.93
+ Czechia                              -8.48              6.08
+ Denmark                              +1.26              1.05
  Estonia                             -95.41             45.25
- Finland                              +1.63             12.19
- France                              +16.39              7.10
- Germany                              -0.36              2.32
- Hungary                              +3.23              5.68
+ Finland                              +1.63              3.90
+ France                              +16.39              7.67
+ Germany                              -0.36              3.96
+ Hungary                              +3.23              5.87
  Ireland                              -0.03              0.00
- Italy                               +13.54              9.22
+ Italy                               +13.54             10.37
  Latvia                              -77.49              0.00
  Lithuania                           -77.49             33.32
- Luxembourg                          -68.41             45.91
- Netherlands                         +69.58             43.48
+ Luxembourg                          -68.41             45.96
+ Netherlands                         +69.58             41.88
  Poland                             +111.87             47.10
- Portugal                             -0.98              1.60
- Romania                              -3.74              3.34
- Slovakia                             -9.75              6.99
- Slovenia                             +4.78              2.88
- Spain                                +9.47              6.88
- Sweden                              -10.09              6.49
+ Portugal                             -0.98              3.76
+ Romania                              -3.74              6.77
+ Slovakia                             -9.75              6.93
+ Slovenia                             +4.78              5.01
+ Spain                                +9.47              6.95
+ Sweden                              -10.09              6.39
 --------------------------------------------------------------------------------------------------------------
- Spearman(reallocated export, |Delta c_i|) over the 24 members: +0.74
+ Spearman(reallocated export, |Delta c_i|) over the 24 members: +0.79
 ==============================================================================================================
 
 ==============================================================================================================
@@ -747,27 +664,27 @@ TREND TABLE 3 - MULTIPLIERS pi_i, mu_i vs Delta c_i (unique multipliers only) | 
 ==============================================================================================================
 --------------------------------------------------------------------------------------------------------------
  Member                       Delta c_i (%)                  pi_i                  mu_i
- Austria                             +13.26         -5.997599e+08          2.314491e+08
- Belgium                              +2.03         -5.233546e+07          2.053699e+08
- Czechia                              -8.48          2.638713e+08          1.902174e+08
- Denmark                              +1.26          2.275446e+07          2.066105e+08
- Finland                              +1.63          3.656820e+08          1.435709e+08
- France                              +16.39         -1.802393e+08          2.058465e+08
- Germany                              -0.36          4.796691e+06          1.998889e+08
- Hungary                              +3.23          1.985973e+07          2.019584e+08
- Italy                               +13.54         -6.670051e+08          2.322961e+08
- Lithuania                           -77.49          1.383062e+10          7.065616e+07
- Luxembourg                          -68.41          3.239759e+10         -7.269824e+07
- Netherlands                         +69.58         -1.021520e+09          2.925926e+08
- Portugal                             -0.98          1.177675e+08          1.976803e+08
- Romania                              -3.74          1.696733e+08          2.002815e+08
- Slovakia                             -9.75          4.903108e+08          1.635057e+08
- Slovenia                             +4.78          1.561443e+08          1.815016e+08
- Spain                                +9.47         -1.944442e+08          2.175048e+08
- Sweden                              -10.09          7.080817e+08          1.596165e+08
+ Austria                             +13.26         -3.723303e+08          5.004221e+08
+ Belgium                              +2.03          1.590246e+08          4.659675e+08
+ Czechia                              -8.48          4.419192e+08          4.406129e+08
+ Denmark                              +1.26          2.183390e+08          4.580512e+08
+ Finland                              +1.63          1.705997e+08          4.709827e+08
+ France                              +16.39          8.759578e+07          4.624131e+08
+ Germany                              -0.36          3.523280e+08          4.625644e+08
+ Hungary                              +3.23          9.479856e+07          4.790031e+08
+ Italy                               +13.54         -3.514165e+08          5.087697e+08
+ Lithuania                           -77.49          2.079218e+10          2.924069e+08
+ Luxembourg                          -68.41          3.301725e+10          1.796647e+08
+ Netherlands                         +69.58         -1.117218e+09          5.957866e+08
+ Portugal                             -0.98          2.739916e+08          4.503907e+08
+ Romania                              -3.74          3.393262e+08          4.576137e+08
+ Slovakia                             -9.75          6.265601e+08          4.378634e+08
+ Slovenia                             +4.78          5.170960e+08          4.058353e+08
+ Spain                                +9.47         -2.197508e+07          4.757241e+08
+ Sweden                              -10.09          1.066850e+09          4.187595e+08
 --------------------------------------------------------------------------------------------------------------
- Spearman(pi_i, Delta c_i) over the 18 unique members: -0.91
- Spearman(mu_i, Delta c_i) over the 18 unique members: +0.82
+ Spearman(pi_i, Delta c_i) over the 18 unique members: -0.90
+ Spearman(mu_i, Delta c_i) over the 18 unique members: +0.81
 ==============================================================================================================
 
 ==============================================================================================================
@@ -775,53 +692,55 @@ TREND TABLE 4 - UTILITY CHANGE vs |Delta c_i| | SECTOR 870323 | EXPERIMENT 3.1
 ==============================================================================================================
 --------------------------------------------------------------------------------------------------------------
  Member                       Delta c_i (%)     Delta u_i (%)
- Austria                             +13.26             -0.87
- Belgium                              +2.03             +0.52
- Bulgaria                             -0.36             -0.15
- Croatia                              -0.36             -0.15
- Czechia                              -8.48             -0.36
- Denmark                              +1.26             -0.06
- Estonia                             -95.41            -99.18
- Finland                              +1.63             +1.63
+ Austria                             +13.26             +0.31
+ Belgium                              +2.03             +0.45
+ Bulgaria                             -0.36             +0.01
+ Croatia                              -0.36             +0.01
+ Czechia                              -8.48             -0.04
+ Denmark                              +1.26             +0.10
+ Estonia                             -95.41            -45.68
+ Finland                              +1.63             +0.36
  France                              +16.39             +0.59
- Germany                              -0.36             +0.34
- Hungary                              +3.23             +0.98
- Ireland                              -0.03             -0.20
- Italy                               +13.54             -0.70
- Latvia                              -77.49             +0.11
- Lithuania                           -77.49            -26.59
- Luxembourg                          -68.41            -35.16
- Netherlands                         +69.58            -10.12
- Poland                             +111.87            -36.79
- Portugal                             -0.98             -0.06
- Romania                              -3.74             -0.13
- Slovakia                             -9.75             -0.67
- Slovenia                             +4.78             +0.30
- Spain                                +9.47             +0.13
- Sweden                              -10.09             -0.64
+ Germany                              -0.36             +0.28
+ Hungary                              +3.23             +0.36
+ Ireland                              -0.03             -0.14
+ Italy                               +13.54             +0.28
+ Latvia                              -77.49             +0.06
+ Lithuania                           -77.49            -15.35
+ Luxembourg                          -68.41            -16.78
+ Netherlands                         +69.58             -3.55
+ Poland                             +111.87            -11.01
+ Portugal                             -0.98             +0.17
+ Romania                              -3.74             +0.12
+ Slovakia                             -9.75             -0.42
+ Slovenia                             +4.78             +0.57
+ Spain                                +9.47             +0.53
+ Sweden                              -10.09             -0.79
 --------------------------------------------------------------------------------------------------------------
- Spearman(|Delta u_i|, |Delta c_i|) over the 24 members: +0.62
+ Spearman(|Delta u_i|, |Delta c_i|) over the 24 members: +0.66
 ==============================================================================================================
 
  Creating the images...
 
 ####################################################################################################
- IMAGES CREATED (flows, utilities, export shares):
+ IMAGES CREATED (flows, utilities, export shares, reallocation vs centrality, multipliers):
    fig_flows_exp3_case1.jpg
    fig_utilities_exp3_case1.jpg
    fig_exports_exp3_case1.jpg
+   fig_realloc_exp3_case1.jpg
+   fig_multipliers_exp3_case1.jpg
 ####################################################################################################
 
  Utilities at the baseline: positive = 24, negative = 0
  Utilities at the equilibrium: positive = 24, negative = 0
 
- Price of Anarchy = W(w^SO)/W(w^NE) = 1.000220
+ Price of Anarchy = W(w^SO)/W(w^NE) = 1.000123
 
 =============================================================================================================================================================================
 EXPERIMENT 3 SUMMARY - SECTOR 870323: Vehicles: spark-ignition internal combustion reciprocating piston engine, cylinder capacity exceeding 1500cc but not exceeding 3000cc
 =============================================================================================================================================================================
   Pruning        theta   Threshold a               Arcs kept  Flow kept           P^S  u>0 (base)  u<0 (base)  u>0 (NE)  u<0 (NE)  ||c*-cdes||       PoA
-      10%    1.403e+07     4.291e+03       1244/5728 = 21.7%      99.1%     1.515e+16          24           0        24         0    1.939e-02    1.0002
+      10%    3.158e+07     4.291e+03       1244/5728 = 21.7%      99.1%     3.670e+16          24           0        24         0    1.939e-02    1.0001
 =============================================================================================================================================================================
 
 ======================================================================================================================

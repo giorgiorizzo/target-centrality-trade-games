@@ -5,15 +5,17 @@ Theory and an Application to the BACI Trade Network
 RUN OUTPUT - EXPERIMENT 2
 =========================
 
-This file contains the complete, unedited console output of the run of Experiment 2 (random target centrality) on the BACI
+This file contains the console output of the run of Experiment 2 (random target centrality) on the BACI
 trade network (sector 870323, HS92), produced by the Python code BACI-Nash_exp_plot.py available in this
 repository. The output reports, in this order: the data and parameters of the run, the checks on the target
 centrality and on the solution of the game, the equilibrium flows and the utilities of the members of the
-coalition, the multipliers (mu_i of the budget constraint, pi_i of the centrality constraint and nu_ij of the
-arcs at the lower bound) together with their summary table, four trend tables (rank correlations between the
-required change of centrality and flows, reallocated export, multipliers and utilities), and the list of the
-images created. The tables of the paper are derived from this output; the tables of its Appendix are also
-reproduced in the file appendix_tables.txt. Local file paths have been removed.
+coalition, the multipliers (mu_i of the budget constraint, pi_i of the centrality constraint and nu_ij of
+the arcs at the lower bound) together with their summary table, four trend tables (rank correlations between
+the required change of centrality and flows, reallocated export, multipliers and utilities), and the list of
+the images created. The tables of the paper are derived from this output; the tables of its Appendix are
+also reproduced in the file appendix_tables.txt. Local file paths have been removed. The blocks identical in
+the four experiments (sector data, baseline centrality, coalition, calibration of theta* and check on k,
+list of the combined figures) are not repeated here and are reported once in appendix_tables.txt.
 
 ----------------------------------------------------------------------------------------------------
 
@@ -25,102 +27,11 @@ EXPERIMENT 2 selected.
 SECTOR 870323 | PRUNING 10%
 ########################################################################################################################
 
-ANALYSIS FOR SECTOR: Vehicles: spark-ignition internal combustion reciprocating piston engine, cylinder capacity exceeding 1500cc but not exceeding 3000cc
- Baseline year: 2024 | Years used for sigma_ij: 2018-2024 (7 years)
- PRUNING (a = 10% of the mean baseline flow):
-   Mean baseline flow: 42,905.531 (4.291e+04)
-   Threshold a = 10% x mean flow = 4,290.553 (4.291e+03); arcs with flow below a are removed
-   Arcs kept: 1244/5728 = 21.7%
-   Flow kept: 2.436e+08/2.458e+08 = 99.1%
- Countries in SCC: 50 | Flows: 648
- SCC density: 0.26
- rho^0 = 13766972.4633
-
- BASELINE CENTRALITY c0: DYNAMIC RANGE
-   quantiles (0, 1%, 5%, 25%, 50%, 75%, 95%, 100%): 7.33e-12, 1.19e-11, 1.13e-08, 4.11e-05, 1.30e-03, 1.60e-02, 1.16e-01, 1.94e-01
-   nodes with c0 < 1e-6: 7 of 50 | nodes with c0 < 1e-9: 2
-   smallest centralities: Armenia (7.3e-12), Kazakhstan (1.7e-11)
-
- BASELINE CENTRALITY c0 (all countries of the SCC; * = member of the coalition)
- Country                                           c0
- Azerbaijan                              7.243712e-05
- *Austria                                6.728138e-03
- Armenia                                 7.327667e-12
- *Belgium                                1.421892e-02
- Brazil                                  1.502818e-03
- *Bulgaria                               1.197434e-04
- Canada                                  8.608719e-02
- China                                   3.082897e-02
- Colombia                                3.949623e-04
- *Croatia                                1.520094e-04
- *Czechia                                1.290998e-02
- *Denmark                                3.502454e-03
- *Estonia                                1.433549e-06
- *Finland                                3.228265e-03
- *France                                 5.314597e-03
- Georgia                                 3.244085e-07
- *Germany                                1.681935e-01
- China, Hong Kong SAR                    3.070720e-05
- *Hungary                                1.662424e-02
- Indonesia                               4.561730e-06
- *Ireland                                9.758269e-06
- *Italy                                  9.399946e-03
- Japan                                   1.396962e-01
- Kazakhstan                              1.674350e-11
- Rep. of Korea                           8.165579e-02
- Lebanon                                 3.153897e-07
- *Latvia                                 3.528624e-07
- *Lithuania                              1.328041e-04
- *Luxembourg                             1.678064e-04
- Malaysia                                8.692267e-06
- Mexico                                  1.944618e-01
- Morocco                                 5.637202e-04
- *Netherlands                            2.422334e-03
- *Poland                                 1.040039e-03
- *Portugal                               1.764731e-03
- *Romania                                1.103405e-03
- Russian Federation                      2.305705e-08
- India                                   2.202634e-03
- Singapore                               1.744998e-09
- *Slovakia                               4.574841e-02
- *Slovenia                               5.906756e-04
- South Africa                            1.801764e-02
- *Spain                                  1.931124e-02
- *Sweden                                 2.025764e-02
- Switzerland                             2.242089e-04
- Thailand                                2.959733e-03
- Türkiye                                 2.808451e-04
- Ukraine                                 1.713703e-05
- United Kingdom                          2.161497e-02
- USA                                     8.643192e-02
-
- TOP 5 EXPORTERS AMONG THE MEMBERS OF THE COALITION S, baseline centrality and its position among the 50 countries of the SCC (• = member of the coalition S)
- ----------------------------------------------------------------------------------------------------
- Rank  Country                                Export volume                c0  Position of c0
-    1  • Germany                               42820804.232      1.681935e-01               2
-    2  • Slovakia                               8349964.634      4.574841e-02               7
-    3  • Sweden                                 4335320.625      2.025764e-02              10
-    4  • Belgium                                3830986.336      1.421892e-02              14
-    5  • Czechia                                3302769.357      1.290998e-02              15
- ----------------------------------------------------------------------------------------------------
-
- TOP 5 HIGHEST BASELINE CENTRALITIES (SCC) (• = member of the coalition S)
- ------------------------------------------------------------
- Position  Country                                           c0
-        1    Mexico                                1.944618e-01
-        2  • Germany                               1.681935e-01
-        3    Japan                                 1.396962e-01
-        4    USA                                   8.643192e-02
-        5    Canada                                8.608719e-02
- ------------------------------------------------------------
-
- Coalition S (24 member(s), 24/27 EU members present in this SCC): Austria, Belgium, Bulgaria, Croatia, Czechia, Denmark, Estonia, Finland, France, Germany, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden
-
  EXPERIMENT 2 - RANDOM TARGET: seed = 20260101 (the same for every sector; the factor of each country is drawn from default_rng([seed, country code])) | c^des_i ~ U[c0_i (1-0.5), c0_i (1+0.5)], then normalized
 
  c_des NON e' implementabile da S (Proposizione 3 e condizione sugli outsider (residuo 2.26e-01) non soddisfatta).
  MIQP: 20 member(s) with >= 2 arcs (big-M with binary selectors); 4 single-arc member(s) use the equality rho0*c_i = T0_i*c_j
- MIQP diagnostics (Gurobi): status = 2 | runtime = 2.7s | relative gap = 0.00e+00 | best bound = 0.00684328 | nodes = 6234
+ MIQP diagnostics (Gurobi): status = 2 | runtime = 2.6s | relative gap = 0.00e+00 | best bound = 0.00684328 | nodes = 6234
    max constraint violation at the returned solution = 4.66e-10
  MIQP started WITHOUT warm start (c_init = None, experiment 2) | ||c0 - c_des||^2 = 0.00696061 | ||c* - c0||^2 = 0.000115127
  Stage 1 (target-centrality MIQP): ||c* - c_des||^2 = 0.00684328 | eta = 3.66383e-12
@@ -172,16 +83,7 @@ SECTOR 870323 | PRUNING 10%
        4    2.105242e+07         -2.303058e+12                     1
        5    3.157863e+07          3.036254e+12                     0
 
- THETA: theta = 3.157863e+07 (theta / theta_0 = 7.5938)
-
- CHECK k: k = 3.792664e+07 = 1.5 x bound | bound = max_(i,j) (sigma_ij + eps)(d_S(j) - 1) = 2.528443e+07 | k > bound: True
-   eps = 1 | beta_ij = k/(sigma_ij + eps) in [1.5000e+01, 3.9117e+04]
-   min over arcs of beta_ij / (gamma_j (d_S(j)-1)) = 1.5000 (Prop. 2 needs > 0.5; concavity of W needs > 1)
-   arcs violating Prop. 2: 0/367 | arcs violating beta_ij > gamma_j (d_S(j)-1): 0/367
-
- condition (Prop. 2) satisfied: True | gamma_j = 1 | ell_ij = 20.00% * w0_ij
-
- GUROBI DIAGNOSTICS - coalition potential game (QP): status = 2 | runtime = 0.007s | barrier iterations = 19
+ GUROBI DIAGNOSTICS - coalition potential game (QP): status = 2 | runtime = 0.006s | barrier iterations = 19
    residuals (relative to the largest budget): budget = 8.23e-14 | centrality = 7.84e-15 | lower bound = 0.00e+00
 
 ===========================================================================================================================
@@ -827,10 +729,12 @@ TREND TABLE 4 - UTILITY CHANGE vs |Delta c_i| | SECTOR 870323 | EXPERIMENT 2
  Creating the images...
 
 ####################################################################################################
- IMAGES CREATED (flows, utilities, export shares):
+ IMAGES CREATED (flows, utilities, export shares, reallocation vs centrality, multipliers):
    fig_flows_exp2.jpg
    fig_utilities_exp2.jpg
    fig_exports_exp2.jpg
+   fig_realloc_exp2.jpg
+   fig_multipliers_exp2.jpg
 ####################################################################################################
 
  Utilities at the baseline: positive = 24, negative = 0
